@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Header("Settings"), Range(1f, 5f)] private float _moveSpeed;
     [SerializeField, Range(0f, 0.5f)] private float _movementThreshold = 0.1f;
 
+    public Vector3 MoveDirectionVec3 => new Vector3(Movement.x, transform.position.y, Movement.y);
     public Vector2 Movement {get; private set; }
     public bool IsWalking { get; private set; }
 
@@ -30,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 moveDirection = new Vector3(Movement.x, transform.position.y, Movement.y);
-        _rigidbody.velocity += _moveSpeed * moveDirection;
+        _rigidbody.velocity += _moveSpeed * MoveDirectionVec3;
     }
 }
