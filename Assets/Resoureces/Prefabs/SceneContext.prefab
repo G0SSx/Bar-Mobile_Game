@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5559516038044823087}
   - component: {fileID: 5559516038044823072}
   - component: {fileID: 5559516038044823086}
+  - component: {fileID: 4884814426798960612}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 5559516038044823086}
+  - {fileID: 4884814426798960612}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -77,3 +79,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb58a418c017e2448c93855632bd2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4884814426798960612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5559516038044823073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d31838fd56954408216f59515eeaaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meatPrefab: {fileID: 1631685296881337290, guid: d2437e6074e867144a425d71da0749c9, type: 3}
+  _cheesePrefab: {fileID: 1631685296881337290, guid: 7411a3638b2895441ba2ca749da6f50e, type: 3}
+  _cabbagePrefab: {fileID: 1631685296881337290, guid: 30d0e63ef7554f24c8c204cd226967f6, type: 3}
+  _tomatoPrefab: {fileID: 5804416839414601468, guid: 9d466fc19dbd57246a312947c6697dcf, type: 3}
