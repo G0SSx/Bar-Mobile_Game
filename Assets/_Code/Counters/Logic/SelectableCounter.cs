@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Selectable : MonoBehaviour
+public abstract class SelectableCounter : MonoBehaviour
 {
     [SerializeField] private GameObject _selectedVisual;
 
