@@ -80,10 +80,24 @@ public class PlayerInteraction : MonoBehaviour
         _kitchenObject = kitchenObject;
         _kitchenObject.SetParent(_kitchenObjectParent);
         _kitchenObject.HasBeenTaken += KitchenObjectTaken;
+        _kitchenObject.HasBeenDeleted += KitchenObjectDeleted;
     }
 
-    private void KitchenObjectTaken() =>
+    private void KitchenObjectTaken()
+    {
+        _kitchenObject.HasBeenTaken -= KitchenObjectTaken;
+        _kitchenObject.HasBeenDeleted -= KitchenObjectDeleted;
         _kitchenObject = null;
+    }
+
+    private void KitchenObjectDeleted()
+    {
+        if (_kitchenObject != null)
+        {
+            Destroy(_kitchenObject.gameObject);
+            _kitchenObject = null;
+        }
+    }
 
     private bool TryReycastCounter(out BaseCounter counter)
     {
