@@ -2,47 +2,73 @@
 
 public class KitchenObjectsFactory
 {
-    private KitchenObject _cabbagePrefab;
-    private KitchenObject _meatPrefab;
-    private KitchenObject _tomatoPrefab;
-    private KitchenObject _cheesePrefab;
+    private KitchenObjectConfigsStorage _storage;
 
-    public KitchenObjectsFactory(KitchenObject cabbagePrefab, KitchenObject meatPrefab, 
-        KitchenObject tomatoPrefab, KitchenObject cheesePrefab)
-    {
-        _cabbagePrefab = cabbagePrefab;
-        _meatPrefab = meatPrefab;
-        _tomatoPrefab = tomatoPrefab;
-        _cheesePrefab = cheesePrefab;
-    }
+    public KitchenObjectsFactory(KitchenObjectConfigsStorage storage) => 
+        _storage = storage;
 
-    public KitchenObject CreateKitchenObject(KitchenObjectType type, Transform objectParent)
+    public KitchenObject CreateKitchenObject(KitchenObjectType type)
     {
         KitchenObject kitchenObject = null;
 
         switch (type)
         {
             case KitchenObjectType.Tomato:
-                kitchenObject = Object.Instantiate(_tomatoPrefab);
+                kitchenObject = Object.Instantiate(_storage.Tomato.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.Tomato);
                 break;
-            case KitchenObjectType.Meat:
-                kitchenObject = Object.Instantiate(_meatPrefab);
+            case KitchenObjectType.MeatUncooked:
+                kitchenObject = Object.Instantiate(_storage.UncookedMeatConfig.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.UncookedMeatConfig);
+                break;
+            case KitchenObjectType.MeatCooked:
+                kitchenObject = Object.Instantiate(_storage.CookedMeatConfig.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.CookedMeatConfig);
+                break;
+            case KitchenObjectType.MeatBurned:
+                kitchenObject = Object.Instantiate(_storage.BurnedMeatConfig.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.BurnedMeatConfig);
                 break;
             case KitchenObjectType.Cheese:
-                kitchenObject = Object.Instantiate(_cheesePrefab);
+                kitchenObject = Object.Instantiate(_storage.Cheese.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.Cheese);
                 break;
             case KitchenObjectType.Cabbage:
-                kitchenObject = Object.Instantiate(_cabbagePrefab);
+                kitchenObject = Object.Instantiate(_storage.Cabbage.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.Cabbage);
                 break;
-        }
-
-        if (kitchenObject != null)
-        {
-            kitchenObject.transform.SetParent(objectParent);
-            kitchenObject.transform.position = objectParent.position;
-            kitchenObject.transform.rotation = objectParent.rotation;
+            case KitchenObjectType.Plate:
+                kitchenObject = Object.Instantiate(_storage.Plate.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.Plate);
+                break;
         }
 
         return kitchenObject;
     }
+
+    public KitchenObject CreateSliceOfKitchenObject(KitchenObjectType type)
+    {
+        KitchenObject kitchenObject = null;
+
+        switch (type)
+        {
+            case KitchenObjectType.Tomato:
+                kitchenObject = Object.Instantiate(_storage.TomatoSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.TomatoSliced);
+                break;
+            case KitchenObjectType.Cheese:
+                kitchenObject = Object.Instantiate(_storage.CheeseSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.CheeseSliced);
+                break;
+            case KitchenObjectType.Cabbage:
+                kitchenObject = Object.Instantiate(_storage.CabbageSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.CabbageSliced);
+                break;
+        }
+
+        return kitchenObject;
+    }
+
+    private void SetupKitchenObject(KitchenObject kitchenObject, KitchenObjectConfig config) =>
+        kitchenObject.Init(config.IsCuttable, config.Type, config.IsCooked);
 }
