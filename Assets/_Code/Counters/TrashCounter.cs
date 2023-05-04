@@ -3,11 +3,8 @@
     public override KitchenObject Interact(KitchenObject playersObject)
     {
         if (playersObject != null)
-        {
-            playersObject.HasBeenTaken?.Invoke();
-            Destroy(playersObject.transform.gameObject);
-        }
-
+            playersObject.HasBeenDeleted?.Invoke();
+        
         return null;
     }
 }
