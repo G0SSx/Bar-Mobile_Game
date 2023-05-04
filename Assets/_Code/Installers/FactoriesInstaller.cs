@@ -3,16 +3,13 @@ using UnityEngine;
 
 public class FactoriesInstaller : MonoInstaller
 {
-    [SerializeField] private KitchenObject _meatPrefab;
-    [SerializeField] private KitchenObject _cheesePrefab;
-    [SerializeField] private KitchenObject _cabbagePrefab;
-    [SerializeField] private KitchenObject _tomatoPrefab;
+    [SerializeField] private KitchenObjectConfigsStorage _storage;
 
     public override void InstallBindings()
     {
         Container
             .Bind<KitchenObjectsFactory>()
-            .FromInstance(new KitchenObjectsFactory(_cabbagePrefab, _meatPrefab, _tomatoPrefab, _cheesePrefab))
+            .FromInstance(new KitchenObjectsFactory(_storage))
             .AsSingle();
     }
 }
