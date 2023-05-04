@@ -4,7 +4,6 @@ using UnityEngine;
 public class ConteinerCounter : BaseCounter
 {
     [SerializeField] private KitchenObjectType _objectType;
-    [SerializeField] private Transform _objectParent;
     [SerializeField] private Animator _animator;
 
     private const string OpeningAnimationTriggerName = "OpenClose";
@@ -15,12 +14,12 @@ public class ConteinerCounter : BaseCounter
     private void Construct(KitchenObjectsFactory factory) => 
         _factory = factory;
 
-    public override KitchenObject Interact(KitchenObject objectInPlayersHands)
+    public override KitchenObject Interact(KitchenObject playersObject)
     {
-        if (objectInPlayersHands != null)
+        if (playersObject != null)
             return null;
 
         _animator.SetTrigger(OpeningAnimationTriggerName);
-        return _factory.CreateKitchenObject(_objectType, _objectParent); ;
+        return _factory.CreateKitchenObject(_objectType);
     }
 }
