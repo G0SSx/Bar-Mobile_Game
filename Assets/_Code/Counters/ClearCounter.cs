@@ -1,41 +1,16 @@
-﻿using UnityEngine;
-
-public class ClearCounter : BaseCounter
+﻿public class ClearCounter : ContainmentCounter
 {
-    [SerializeField] private Transform _objectParent;
-    
-    private KitchenObject _kitchenObject;
-
     public override KitchenObject Interact(KitchenObject playersObject)
     {
-        if (PlayerAndCounterAreFull(playersObject) || BothObjectsAreEmpty(playersObject))
-            return null;
-
-        if (_kitchenObject == null)
+        if (kitchenObject == null)
             TakeKitchenObject(playersObject);
-        else
-            return GiveKitchenObjectToPlayer();
-
+        else if (playersObject == null)
+            return ReturnKitchenObject();
+        else if (playersObject.IsCooked && kitchenObject is Plate plate && plate.CanKitchenObjectBeTaken(playersObject))
+            plate.TakeKitchenObject(playersObject);
+        else if (playersObject is Plate playersPlate && playersPlate.CanKitchenObjectBeTaken(kitchenObject))
+            playersPlate.TakeKitchenObject(ReturnKitchenObject());
+        
         return null;
-    }
-
-    private bool PlayerAndCounterAreFull(KitchenObject playersObject) =>
-        playersObject != null && _kitchenObject != null;
-
-    private bool BothObjectsAreEmpty(KitchenObject playersObject) =>
-        playersObject == null && _kitchenObject == null;
-
-    private KitchenObject GiveKitchenObjectToPlayer()
-    {
-        KitchenObject objectToReturn = _kitchenObject;
-        _kitchenObject = null;
-        return objectToReturn;
-    }
-
-    private void TakeKitchenObject(KitchenObject kitchenObject) 
-    {
-        kitchenObject.HasBeenTaken();
-        _kitchenObject = kitchenObject;
-        _kitchenObject.SetParent(_objectParent);
     }
 }
