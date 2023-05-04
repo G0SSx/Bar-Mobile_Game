@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedVisual: {fileID: 476349346391917962}
-  _objectParent: {fileID: 6484646515290898142}
+  _kitchenObjectParent: {fileID: 6484646515290898142}
 --- !u!1 &3825532352784038439
 GameObject:
   m_ObjectHideFlags: 0

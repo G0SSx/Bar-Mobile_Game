@@ -91,7 +91,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d31838fd56954408216f59515eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meatPrefab: {fileID: 1631685296881337290, guid: d2437e6074e867144a425d71da0749c9, type: 3}
-  _cheesePrefab: {fileID: 1631685296881337290, guid: 7411a3638b2895441ba2ca749da6f50e, type: 3}
-  _cabbagePrefab: {fileID: 1631685296881337290, guid: 30d0e63ef7554f24c8c204cd226967f6, type: 3}
-  _tomatoPrefab: {fileID: 5804416839414601468, guid: 9d466fc19dbd57246a312947c6697dcf, type: 3}
+  _storage: {fileID: 11400000, guid: ac7beddd1de1bb244960e84bb20b0707, type: 2}
