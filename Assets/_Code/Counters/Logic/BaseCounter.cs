@@ -1,4 +1,4 @@
-﻿public abstract class BaseCounter : Selectable
+﻿public abstract class BaseCounter : SelectableCounter
 {
-    public abstract KitchenObject Interact(KitchenObject objectInPlayersHands);
+    public abstract KitchenObject Interact(KitchenObject playersObject);
 }
