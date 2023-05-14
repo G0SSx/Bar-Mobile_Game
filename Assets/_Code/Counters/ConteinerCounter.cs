@@ -19,6 +19,8 @@ public class ConteinerCounter : BaseCounter
         if (playersObject != null)
             return null;
 
+        PlayInteractionSound();
+
         _animator.SetTrigger(OpeningAnimationTriggerName);
         return _factory.CreateKitchenObject(_objectType);
     }

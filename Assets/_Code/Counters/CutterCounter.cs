@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class CutterCounter : ContainmentCounter
@@ -59,6 +58,8 @@ public class CutterCounter : ContainmentCounter
 
     private void Cut()
     {
+        PlayInteractionSound();
+
         _animator.SetTrigger(_cutTriggerString);
         _cuttingProgressPercentage += GetCattingPercent();
         _progressBar.SetValue(_cuttingProgressPercentage);

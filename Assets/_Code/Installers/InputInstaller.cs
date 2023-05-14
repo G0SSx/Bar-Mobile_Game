@@ -2,16 +2,15 @@
 
 public class InputInstaller : MonoInstaller
 {
-    private InputActions _input;
-
     public override void InstallBindings()
     {
-        _input = new InputActions();
-        _input.Enable();
-
+        InputActions input = new InputActions(); 
+        
         Container
             .Bind<InputActions>()
-            .FromInstance(_input)
+            .FromInstance(input)
             .AsSingle();
+
+        input.Enable();
     }
 }

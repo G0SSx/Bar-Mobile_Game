@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public abstract class SelectableCounter : MonoBehaviour
+public abstract class SelectableCounter : InteractWithSoundsCounter
 {
-    [SerializeField] private GameObject _selectedVisual;
+    [Header("Normal stuff"), SerializeField] private GameObject _selectedVisual;
 
     public void Select() => 
         _selectedVisual.SetActive(true);

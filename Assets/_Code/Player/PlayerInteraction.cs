@@ -17,7 +17,6 @@ public class PlayerInteraction : MonoBehaviour
     private void Construct(InputActions input)
     {
         _input = input;
-        _input.Player.Interact.performed += Interact;
     }
 
     private void OnDisable() => 
@@ -80,17 +79,17 @@ public class PlayerInteraction : MonoBehaviour
         _kitchenObject = kitchenObject;
         _kitchenObject.SetParent(_kitchenObjectParent);
         _kitchenObject.HasBeenTaken += KitchenObjectTaken;
-        _kitchenObject.HasBeenDeleted += KitchenObjectDeleted;
+        _kitchenObject.DeleteObject += KitchenObjectDeleteRequest;
     }
 
     private void KitchenObjectTaken()
     {
         _kitchenObject.HasBeenTaken -= KitchenObjectTaken;
-        _kitchenObject.HasBeenDeleted -= KitchenObjectDeleted;
+        _kitchenObject.DeleteObject -= KitchenObjectDeleteRequest;
         _kitchenObject = null;
     }
 
-    private void KitchenObjectDeleted()
+    private void KitchenObjectDeleteRequest()
     {
         if (_kitchenObject != null)
         {

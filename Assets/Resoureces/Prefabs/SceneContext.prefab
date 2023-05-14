@@ -91,4 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d31838fd56954408216f59515eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _storage: {fileID: 11400000, guid: ac7beddd1de1bb244960e84bb20b0707, type: 2}
+  _kitchenObjectConfigsStorage: {fileID: 11400000, guid: ac7beddd1de1bb244960e84bb20b0707, type: 2}
+  _iconsStorage: {fileID: 11400000, guid: 41d785de394e8334382ac8473ebe3680, type: 2}
+  _emptyIconPrefab: {fileID: 8242707471211444999, guid: c215d652095a9234ebcf6d8fe787bce3, type: 3}

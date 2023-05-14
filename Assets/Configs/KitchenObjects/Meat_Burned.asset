@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b040c0315bde8074baddbbd8c12fd65b, type: 3}
   m_Name: Meat_Burned
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 3
+  <Type>k__BackingField: 8
   <Prefab>k__BackingField: {fileID: 241052560742332715, guid: 9ddf20377317d9f4e9cfcd76593fbde5, type: 3}
   <IsCuttable>k__BackingField: 0
-  <CuttingPercentPerTime>k__BackingField: 0
+  <IsCooked>k__BackingField: 0

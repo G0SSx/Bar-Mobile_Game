@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -42,15 +41,21 @@ public class PlatesCounter : BaseCounter
             return null;
 
         if (playersObject == null)
-            return _plates.Pop();
+            return PopAPlate();
         else if (playersObject is not Plate && playersObject.IsCooked)
         {
-            Plate plate = _plates.Pop() as Plate;
+            Plate plate = PopAPlate();
             PutPlayersObjectOnPlate(playersObject, plate);
             return plate;
         }
 
         return null;
+    }
+
+    private Plate PopAPlate()
+    {
+        PlayInteractionSound();
+        return _plates.Pop() as Plate;
     }
 
     private void PutPlayersObjectOnPlate(KitchenObject playersObject, Plate plate)

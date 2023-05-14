@@ -3,11 +3,57 @@
 public class KitchenObjectsFactory
 {
     private KitchenObjectConfigsStorage _storage;
+    private IconsFactory _iconsFactory;
 
-    public KitchenObjectsFactory(KitchenObjectConfigsStorage storage) => 
-        _storage = storage;
+    public KitchenObjectsFactory(KitchenObjectConfigsStorage storage, IconsFactory iconsFactory) =>
+        (_storage, _iconsFactory) = (storage, iconsFactory);
 
     public KitchenObject CreateKitchenObject(KitchenObjectType type)
+    {
+        KitchenObject kitchenObject = null;
+        kitchenObject = CreateKitchenObjectAndInit(type);
+
+        if (kitchenObject is Plate plate)
+            plate.UiHandler.Construct(_iconsFactory);
+
+        if (kitchenObject == null)
+            Debug.LogWarning($"A kitchen object of type {type} wasn't found and instantiated!");
+
+        return kitchenObject;
+    }
+
+    public KitchenObject CreateSliceOfKitchenObject(KitchenObjectType type)
+    {
+        KitchenObject kitchenObject = null;
+        kitchenObject = CreateSlicedKitchenObjectAndInit(type);
+
+        return kitchenObject;
+    }
+
+    private KitchenObject CreateSlicedKitchenObjectAndInit(KitchenObjectType type)
+    {
+        KitchenObject kitchenObject = null;
+
+        switch (type)
+        {
+            case KitchenObjectType.Tomato:
+                kitchenObject = Object.Instantiate(_storage.TomatoSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.TomatoSliced);
+                break;
+            case KitchenObjectType.Cheese:
+                kitchenObject = Object.Instantiate(_storage.CheeseSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.CheeseSliced);
+                break;
+            case KitchenObjectType.Cabbage:
+                kitchenObject = Object.Instantiate(_storage.CabbageSliced.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.CabbageSliced);
+                break;
+        }
+
+        return kitchenObject;
+    }
+
+    private KitchenObject CreateKitchenObjectAndInit(KitchenObjectType type)
     {
         KitchenObject kitchenObject = null;
 
@@ -41,28 +87,9 @@ public class KitchenObjectsFactory
                 kitchenObject = Object.Instantiate(_storage.Plate.Prefab);
                 SetupKitchenObject(kitchenObject, _storage.Plate);
                 break;
-        }
-
-        return kitchenObject;
-    }
-
-    public KitchenObject CreateSliceOfKitchenObject(KitchenObjectType type)
-    {
-        KitchenObject kitchenObject = null;
-
-        switch (type)
-        {
-            case KitchenObjectType.Tomato:
-                kitchenObject = Object.Instantiate(_storage.TomatoSliced.Prefab);
-                SetupKitchenObject(kitchenObject, _storage.TomatoSliced);
-                break;
-            case KitchenObjectType.Cheese:
-                kitchenObject = Object.Instantiate(_storage.CheeseSliced.Prefab);
-                SetupKitchenObject(kitchenObject, _storage.CheeseSliced);
-                break;
-            case KitchenObjectType.Cabbage:
-                kitchenObject = Object.Instantiate(_storage.CabbageSliced.Prefab);
-                SetupKitchenObject(kitchenObject, _storage.CabbageSliced);
+            case KitchenObjectType.Bread:
+                kitchenObject = Object.Instantiate(_storage.Bread.Prefab);
+                SetupKitchenObject(kitchenObject, _storage.Bread);
                 break;
         }
 

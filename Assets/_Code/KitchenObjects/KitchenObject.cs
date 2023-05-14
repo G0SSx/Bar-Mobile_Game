@@ -4,7 +4,7 @@ using UnityEngine;
 public class KitchenObject : MonoBehaviour
 {
     public Action HasBeenTaken;
-    public Action HasBeenDeleted;
+    public Action DeleteObject;
     
     public KitchenObjectType Type { get; private set; }
     public bool IsCuttable { get; private set; }
