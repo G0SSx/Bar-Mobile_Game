@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 2911783514880898960}
   - component: {fileID: 6759049351954667772}
   - component: {fileID: -5473610413202234024}
+  - component: {fileID: 8949718220797060324}
   m_Layer: 6
   m_Name: ClearCounter
   m_TagString: Untagged
@@ -125,13 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10bb467c58a4d27479a2e2408c99af0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: -5473610413202234024}
-  _interactSounds:
-  - {fileID: 8300000, guid: 9c88983fa5906dc41944ec5a43b6b5c7, type: 3}
-  - {fileID: 8300000, guid: 331b82ab2c0e2b74d805124d11372c85, type: 3}
-  - {fileID: 8300000, guid: 961379cce253f794abff0d24df806b68, type: 3}
   _selectedVisual: {fileID: 476349346391917962}
   _kitchenObjectParent: {fileID: 6484646515290898142}
+  _counterSounds: {fileID: 8949718220797060324}
 --- !u!82 &-5473610413202234024
 AudioSource:
   m_ObjectHideFlags: 0
@@ -141,7 +138,7 @@ AudioSource:
   m_GameObject: {fileID: 2837224646874620896}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4058120080748147953, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -228,6 +225,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8949718220797060324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837224646874620896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2db83d561074a8f45b5138609e4a4094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: -5473610413202234024}
+  _giveSounds:
+  - {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
+  - {fileID: 8300000, guid: 6728bf8b07482414e99ba965fdd022d8, type: 3}
+  - {fileID: 8300000, guid: 32d29abc86751884081d2005f9ff2676, type: 3}
+  _takeSounds:
+  - {fileID: 8300000, guid: 9c88983fa5906dc41944ec5a43b6b5c7, type: 3}
+  - {fileID: 8300000, guid: 331b82ab2c0e2b74d805124d11372c85, type: 3}
+  - {fileID: 8300000, guid: 961379cce253f794abff0d24df806b68, type: 3}
 --- !u!1 &3825532352784038439
 GameObject:
   m_ObjectHideFlags: 0

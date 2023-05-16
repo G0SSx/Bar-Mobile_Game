@@ -10,6 +10,7 @@ public class DeliveryCounter : BaseCounter
     [SerializeField] private RecipeConfigs _recipeConfigs;
     [SerializeField] private Recipe _recipe;
     [SerializeField] private GameObject _orderIconObject;
+    [SerializeField] private InteractAndDenySoundCounter _sounds;
 
     private IconsFactory _iconsFactory;
     private RecipeData _recipeData;
@@ -31,9 +32,11 @@ public class DeliveryCounter : BaseCounter
         {
             if (IngredientsMatches(plate))
             {
-                AcceptOrder(playersObject);
+                AcceptOrderWithSound(playersObject);
             }
         }
+
+        _sounds.PlayDenySound();
         return null;
     }
 
@@ -57,10 +60,9 @@ public class DeliveryCounter : BaseCounter
         return _recipeConfigs.Recipes[randomIndex];
     }
 
-    private void AcceptOrder(KitchenObject playersObject)
+    private void AcceptOrderWithSound(KitchenObject playersObject)
     {
-        PlayInteractionSound();
-
+        _sounds.PlayInteractSound();
         playersObject.DeleteObject?.Invoke();
         Destroy(playersObject.gameObject);
         OnOrderAccepted?.Invoke(_recipeData.Ingredients.Length);

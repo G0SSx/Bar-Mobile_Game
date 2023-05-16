@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5146885989135822700}
   - component: {fileID: 1966704263447701804}
   - component: {fileID: 8240996014746541263}
+  - component: {fileID: 3894073363854720205}
   m_Layer: 6
   m_Name: TrashCounter
   m_TagString: Untagged
@@ -48,11 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8e7a75a7878e34aaba21b22a19cef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 8240996014746541263}
-  _interactSounds:
-  - {fileID: 8300000, guid: 6024ba1d53d005f48a96b3a9f6bacedd, type: 3}
-  - {fileID: 8300000, guid: 4b70ec0f0afb9ac4ea7dfea07aca4eb4, type: 3}
   _selectedVisual: {fileID: 6409108585136787618}
+  _sounds: {fileID: 3894073363854720205}
 --- !u!65 &1966704263447701804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,7 +73,7 @@ AudioSource:
   m_GameObject: {fileID: 4589716710238282922}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4058120080748147953, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -162,6 +160,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3894073363854720205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589716710238282922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c91f8d96848f54886dd0506d8fd6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 8240996014746541263}
+  _giveSounds:
+  - {fileID: 8300000, guid: 4b70ec0f0afb9ac4ea7dfea07aca4eb4, type: 3}
+  - {fileID: 8300000, guid: 6024ba1d53d005f48a96b3a9f6bacedd, type: 3}
 --- !u!1 &6321832665073130088
 GameObject:
   m_ObjectHideFlags: 0

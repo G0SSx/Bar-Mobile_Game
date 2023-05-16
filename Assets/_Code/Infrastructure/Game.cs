@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Zenject;
 
 public class Game : MonoBehaviour
@@ -10,6 +11,10 @@ public class Game : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private GameSettingsUI _gameSettings;
     [SerializeField] private HUD _hud;
+    [SerializeField] private Button _addTimeButton;
+    [SerializeField] private Button _subtractTimeButton;
+    [Header("Game objects")]
+    [SerializeField] private PlayerMovement _playerMovement;
 
     private const string _bestScorePrefsKey = "BestScore";
     private const int _mainMenuSceneIndex = 0;
@@ -29,6 +34,9 @@ public class Game : MonoBehaviour
     {
         PrepareGameUI();
         HandleInput();
+        _playerMovement.enabled = false;
+        _addTimeButton.onClick.AddListener(() => AddGameTime(new InputAction.CallbackContext()));
+        _subtractTimeButton.onClick.AddListener(() => SubtractGameTime(new InputAction.CallbackContext()));
 
         foreach (DeliveryCounter counter in _deliveryCounters)
             counter.OnOrderAccepted += SuccessfulDelivery;
@@ -38,8 +46,6 @@ public class Game : MonoBehaviour
     {
         if (_isPlaying)
             UpdateTimer();
-        else if (_gameTimerSec <= 0)
-            FinishGame();
     }
 
     public void StartGame()
@@ -48,6 +54,7 @@ public class Game : MonoBehaviour
         _hud.gameObject.SetActive(true);
         _hud.ResetHud();
         _isPlaying = true;
+        _playerMovement.enabled = true;
     }
 
     private void HandleInput()
@@ -93,7 +100,10 @@ public class Game : MonoBehaviour
 
     private void UpdateTimer()
     {
-        _gameTimerSec = _gameTimerSec - Time.deltaTime < 0 ? 0 : _gameTimerSec - Time.deltaTime;
+        _gameTimerSec -= Time.deltaTime;
+        if (_gameTimerSec < 0)
+            FinishGame();
+
         _hud.UpdateTimer(_gameTimerSec);
     }
 

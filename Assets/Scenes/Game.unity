@@ -1114,6 +1114,10 @@ MonoBehaviour:
   - {fileID: 651182530}
   _gameSettings: {fileID: 1865502221}
   _hud: {fileID: 777405458}
+  _addTimeButton: {fileID: 1896927027}
+  _subtractTimeButton: {fileID: 990895906}
+  _playerMovement: {fileID: 764835699}
+  _mixer: {fileID: 24100000, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
 --- !u!1001 &651182528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1365,6 +1369,17 @@ Transform:
   m_Father: {fileID: 1635926348}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &764835699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7425689723204537725, guid: dff553aa47741304a9e62f677c1e7b00, type: 3}
+  m_PrefabInstance: {fileID: 389339088}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb49980a9d437d4a827367f4ffbe84b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &777405457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 536323041334031214, guid: 6d5ccf7d57a3c334db1a70d251a55332, type: 3}
@@ -1430,6 +1445,17 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: c519887634d41d14bb213e0efcadbf68, type: 2}
+--- !u!114 &990895906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5190491738079233709, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}
+  m_PrefabInstance: {fileID: 530400563396691140}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1035208118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1748,7 +1774,7 @@ AudioSource:
   m_GameObject: {fileID: 1074903753}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -944704073696305832, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7a05dfef8ff133848b3b25408c74021c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2922,6 +2948,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504d0c2726776fa4c90d9bd3fdb71bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1896927027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7337355735077121366, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}
+  m_PrefabInstance: {fileID: 530400563396691140}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1937774221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,6 +3592,14 @@ PrefabInstance:
     - target: {fileID: 530400565224278735, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4115101170605137798, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}
+      propertyPath: m_Name
+      value: SetupTimeButtons
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075736440898282044, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}
+      propertyPath: m_Name
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f94134cbab6454f9d3cf290172c4bc, type: 3}

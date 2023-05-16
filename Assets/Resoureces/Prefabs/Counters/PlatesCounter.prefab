@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 4741862874574662836}
   - component: {fileID: 8325609878105866662}
   - component: {fileID: -2656076622768233229}
+  - component: {fileID: 3559031886268612887}
   m_Layer: 6
   m_Name: PlatesCounter
   m_TagString: Untagged
@@ -313,14 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e64f34c9ee1e6f4b9bf1eb22507aac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: -2656076622768233229}
-  _interactSounds:
-  - {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
-  - {fileID: 8300000, guid: 6728bf8b07482414e99ba965fdd022d8, type: 3}
-  - {fileID: 8300000, guid: 32d29abc86751884081d2005f9ff2676, type: 3}
   _selectedVisual: {fileID: 6921596693770291732}
   _platesParent: {fileID: 1370956895969370323}
   _spawnCooldown: 2.5
+  _sounds: {fileID: 3559031886268612887}
 --- !u!82 &-2656076622768233229
 AudioSource:
   m_ObjectHideFlags: 0
@@ -330,7 +327,7 @@ AudioSource:
   m_GameObject: {fileID: 4589716710238282922}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4058120080748147953, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -417,6 +414,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3559031886268612887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589716710238282922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3c9bec8ceb5d840a7034b946fbb59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: -2656076622768233229}
+  _interactSounds:
+  - {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
+  - {fileID: 8300000, guid: 6728bf8b07482414e99ba965fdd022d8, type: 3}
+  - {fileID: 8300000, guid: 32d29abc86751884081d2005f9ff2676, type: 3}
+  _denySounds:
+  - {fileID: 8300000, guid: 400611abd7434234993616a86c030d1e, type: 3}
+  - {fileID: 8300000, guid: 6a936576e1e30a640844535c71d5a149, type: 3}
 --- !u!1 &6334341276810797697
 GameObject:
   m_ObjectHideFlags: 0

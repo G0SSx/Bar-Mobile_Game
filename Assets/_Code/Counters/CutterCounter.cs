@@ -6,8 +6,9 @@ public class CutterCounter : ContainmentCounter
     [SerializeField] private Animator _animator;
     [SerializeField] private CuttableKitchenObjectsConfig _cuttableObjectsConfig;
     [SerializeField] private ProgressBar _progressBar;
+    [SerializeField] private CookingSoundCounter _sounds;
 
-    private const string _cutTriggerString = "Cut";
+    private const string _cutTriggerName = "Cut";
     private const int _maxPercentage = 100;
     private const int _defaultCutPercent = 34;
 
@@ -36,7 +37,7 @@ public class CutterCounter : ContainmentCounter
 
             case CuttingState.Cutting:
                 if (playersObject == null)
-                    Cut();
+                    CutWithSound();
                 break;
 
             case CuttingState.ObjectSliced:
@@ -56,11 +57,10 @@ public class CutterCounter : ContainmentCounter
         return null;
     }
 
-    private void Cut()
+    private void CutWithSound()
     {
-        PlayInteractionSound();
-
-        _animator.SetTrigger(_cutTriggerString);
+        _sounds.PlayInteractionSound();
+        _animator.SetTrigger(_cutTriggerName);
         _cuttingProgressPercentage += GetCattingPercent();
         _progressBar.SetValue(_cuttingProgressPercentage);
 

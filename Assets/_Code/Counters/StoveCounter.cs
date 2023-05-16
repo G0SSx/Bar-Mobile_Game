@@ -7,6 +7,7 @@ public class StoveCounter : ContainmentCounter
     [Header("Dependencies")]
     [SerializeField] private GameObject _stoveOnVisual;
     [SerializeField] private ProgressBar _progressBar;
+    [SerializeField] private CookingSoundCounter _sounds;
 
     [Header("Settings")]
     [SerializeField, Range(2.5f, 6f)] private float _timeToCook;
@@ -46,12 +47,14 @@ public class StoveCounter : ContainmentCounter
     private void StartCooking()
     {
         _stoveOnVisual.SetActive(true);
+        _sounds.StartInteractionSound();
         StartCoroutine(CookingCoroutine());
     }
 
     private void StopCooking()
     {
         _stoveOnVisual.SetActive(false);
+        _sounds.StopInteractionSound();
         StopAllCoroutines();
         _cookingProgress = 0f;
         _progressBar.SetValue(0f);

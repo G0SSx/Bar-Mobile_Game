@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 2205107625249174717}
   - component: {fileID: 6862336539943652636}
   - component: {fileID: 3847174863461159507}
+  - component: {fileID: 5131479288877900178}
   m_Layer: 6
   m_Name: StoveCounter
   m_TagString: Untagged
@@ -393,12 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe1f0f2d3320204c8aba105244ff4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 3847174863461159507}
-  _interactSounds: []
   _selectedVisual: {fileID: 4342457380563524341}
   _kitchenObjectParent: {fileID: 3940761130540436447}
+  _counterSounds: {fileID: 5131479288877900178}
   _stoveOnVisual: {fileID: 17251720544094567}
   _progressBar: {fileID: 8572729371029997018}
+  _sounds: {fileID: 5131479288877900178}
   _timeToCook: 4.5
   _timeToBurn: 8
 --- !u!82 &3847174863461159507
@@ -410,7 +411,7 @@ AudioSource:
   m_GameObject: {fileID: 4589716710238282922}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4058120080748147953, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -497,6 +498,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5131479288877900178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589716710238282922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9f6a875e1afa34a9122170ae25e89e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 3847174863461159507}
+  _giveSounds:
+  - {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
+  - {fileID: 8300000, guid: 6728bf8b07482414e99ba965fdd022d8, type: 3}
+  - {fileID: 8300000, guid: 32d29abc86751884081d2005f9ff2676, type: 3}
+  _takeSounds:
+  - {fileID: 8300000, guid: 9c88983fa5906dc41944ec5a43b6b5c7, type: 3}
+  - {fileID: 8300000, guid: 331b82ab2c0e2b74d805124d11372c85, type: 3}
+  - {fileID: 8300000, guid: 961379cce253f794abff0d24df806b68, type: 3}
+  _interactionSounds:
+  - {fileID: 8300000, guid: 511c1cbfb8b48b64083aec78fe17115f, type: 3}
 --- !u!1 &4998458208842551057
 GameObject:
   m_ObjectHideFlags: 0

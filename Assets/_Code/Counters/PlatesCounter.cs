@@ -6,6 +6,7 @@ public class PlatesCounter : BaseCounter
 {
     [SerializeField] private Transform _platesParent;
     [SerializeField] private float _spawnCooldown;
+    [SerializeField] private InteractAndDenySoundCounter _sounds;
 
     private const byte _maxPlatesAmount = 3;
     private const float _plateHeight = .15f;
@@ -38,23 +39,29 @@ public class PlatesCounter : BaseCounter
     public override KitchenObject Interact(KitchenObject playersObject)
     {
         if (_plates.Count < 1)
+        {
+            _sounds.PlayDenySound();
             return null;
+        }
 
         if (playersObject == null)
-            return PopAPlate();
+        {
+            return PopPlateWithSound();
+        }
         else if (playersObject is not Plate && playersObject.IsCooked)
         {
-            Plate plate = PopAPlate();
+            Plate plate = PopPlateWithSound();
             PutPlayersObjectOnPlate(playersObject, plate);
             return plate;
         }
 
+        _sounds.PlayDenySound();
         return null;
     }
 
-    private Plate PopAPlate()
+    private Plate PopPlateWithSound()
     {
-        PlayInteractionSound();
+        _sounds.PlayInteractSound();
         return _plates.Pop() as Plate;
     }
 

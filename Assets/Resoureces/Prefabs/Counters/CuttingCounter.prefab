@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 1498231768246413704}
   - component: {fileID: 7106195586272638105}
   - component: {fileID: 8132975387213521821}
+  - component: {fileID: 6567312925087115293}
   m_Layer: 6
   m_Name: CuttingCounter
   m_TagString: Untagged
@@ -136,16 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05626e3cb509444788bcfdc4f01dc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 8132975387213521821}
-  _interactSounds:
-  - {fileID: 8300000, guid: e519f586b4ac0904e877dfab85ed729e, type: 3}
-  - {fileID: 8300000, guid: 9c6157275e190604d8136e7e497e941e, type: 3}
-  - {fileID: 8300000, guid: 99c666127ba3b974c99980d14efcf03c, type: 3}
   _selectedVisual: {fileID: 1356570708472811324}
   _kitchenObjectParent: {fileID: 2560679934306196732}
+  _counterSounds: {fileID: 6567312925087115293}
   _animator: {fileID: 2831942792982843299}
   _cuttableObjectsConfig: {fileID: 11400000, guid: e91eee56429e11343b15c733225dd648, type: 2}
   _progressBar: {fileID: 7974789689469861511}
+  _sounds: {fileID: 6567312925087115293}
 --- !u!65 &7106195586272638105
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -168,7 +166,7 @@ AudioSource:
   m_GameObject: {fileID: 4589716710238282922}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4058120080748147953, guid: 059b44905661d3d4e85fc660d043ca07, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -255,6 +253,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6567312925087115293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589716710238282922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9f6a875e1afa34a9122170ae25e89e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 8132975387213521821}
+  _giveSounds:
+  - {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
+  - {fileID: 8300000, guid: 6728bf8b07482414e99ba965fdd022d8, type: 3}
+  - {fileID: 8300000, guid: 32d29abc86751884081d2005f9ff2676, type: 3}
+  _takeSounds:
+  - {fileID: 8300000, guid: 9c88983fa5906dc41944ec5a43b6b5c7, type: 3}
+  - {fileID: 8300000, guid: 331b82ab2c0e2b74d805124d11372c85, type: 3}
+  - {fileID: 8300000, guid: 961379cce253f794abff0d24df806b68, type: 3}
+  _interactionSounds:
+  - {fileID: 8300000, guid: e519f586b4ac0904e877dfab85ed729e, type: 3}
+  - {fileID: 8300000, guid: 9c6157275e190604d8136e7e497e941e, type: 3}
+  - {fileID: 8300000, guid: 99c666127ba3b974c99980d14efcf03c, type: 3}
 --- !u!1 &5608548632114891252
 GameObject:
   m_ObjectHideFlags: 0
