@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 public class InputInstaller : MonoInstaller
 {
@@ -10,7 +11,20 @@ public class InputInstaller : MonoInstaller
             .Bind<InputActions>()
             .FromInstance(input)
             .AsSingle();
-
+        
         input.Enable();
+
+        Container
+            .Bind<InputService>()
+            .FromInstance(RegisterInputService())
+            .AsSingle();
+    }
+
+    private InputService RegisterInputService()
+    {
+        if (Application.isEditor)
+            return new StandaloneInput();
+        else
+            return new MobileInput();
     }
 }

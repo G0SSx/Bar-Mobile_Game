@@ -11,7 +11,7 @@ public class KitchenObjectConfigsStorage : ScriptableObject
     [field:SerializeField] public KitchenObjectConfig Cheese { get; private set; }
     [field:SerializeField] public KitchenObjectConfig Plate { get; private set; }
     [field:SerializeField] public KitchenObjectConfig Cabbage { get; private set; }
-    [field:SerializeField] public KitchenObjectConfig CabbageSliced{ get; private set; }
+    [field:SerializeField] public KitchenObjectConfig CabbageSliced { get; private set; }
     [field:SerializeField] public KitchenObjectConfig TomatoSliced { get; private set; }
     [field:SerializeField] public KitchenObjectConfig CheeseSliced { get; private set; }
 }
