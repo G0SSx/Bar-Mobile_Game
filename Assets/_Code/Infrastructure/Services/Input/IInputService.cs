@@ -4,5 +4,6 @@ public interface IInputService
 {
     Vector2 Axis { get; }
 
-    bool IsAttackButtonUp();
+    bool IsInterationButtonUp();
+    bool IsSettingsButtonUp();
 }

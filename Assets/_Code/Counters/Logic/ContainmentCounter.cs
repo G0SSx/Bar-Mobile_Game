@@ -8,7 +8,7 @@ public abstract class ContainmentCounter : BaseCounter
 
     protected KitchenObject kitchenObject { get; private set; }
 
-    protected KitchenObject ReturnKitchenObject()
+    protected virtual KitchenObject ReturnKitchenObject()
     {
         _counterSounds.PlayTakeSound();
         KitchenObject objectToReturn = kitchenObject;
@@ -16,7 +16,7 @@ public abstract class ContainmentCounter : BaseCounter
         return objectToReturn;
     }
 
-    protected KitchenObject TakeKitchenObject(KitchenObject kitchenObject)
+    protected virtual void TakeKitchenObject(KitchenObject kitchenObject)
     {
         if (kitchenObject == null)
             throw new ArgumentNullException();
@@ -25,6 +25,5 @@ public abstract class ContainmentCounter : BaseCounter
         kitchenObject.HasBeenTaken?.Invoke();
         this.kitchenObject = kitchenObject;
         this.kitchenObject.SetParent(_kitchenObjectParent);
-        return null;
     }
 }

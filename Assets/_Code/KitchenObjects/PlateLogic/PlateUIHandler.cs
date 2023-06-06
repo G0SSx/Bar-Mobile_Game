@@ -1,28 +1,34 @@
 using UnityEngine;
+using Zenject;
 
 public class PlateUIHandler : MonoBehaviour
 {
     [SerializeField] private Transform _firstRow;
     [SerializeField] private Transform _secondRow;
 
-    private int _ingredientsCount;
-    private IconsFactory _factory;
+    private const int FirstRowMaxIconsAmount = 3;
 
-    public void Construct(IconsFactory factory)
-    {
+    private int _ingredientsCount;
+    private IUIFactory _factory;
+
+    [Inject]
+    private void Contruct(IUIFactory factory) => 
         _factory = factory;
+    
+    public void AddIngredientOfType(Sprite icon)
+    {
+        CreateIngredientObject(icon);
+        _ingredientsCount++;
     }
 
-    public void AddIngredientOfType(KitchenObjectType type)
+    private void CreateIngredientObject(Sprite icon)
     {
-        GameObject iconObject = _factory.CreateIconObject(type);
+        GameObject iconObject = _factory.CreateIconObject(icon);
+        iconObject.name = $"Ingredient {_ingredientsCount}";
 
-        if (_ingredientsCount < 3)
-            SetIconsParent(iconObject.transform, _firstRow);
-        else
-            SetIconsParent(iconObject.transform, _secondRow);
-
-        _ingredientsCount++;
+        SetIconsParent(iconObject.transform, _ingredientsCount < FirstRowMaxIconsAmount
+            ? _firstRow
+            : _secondRow);
     }
 
     private void SetIconsParent(Transform icon, Transform iconsParent)

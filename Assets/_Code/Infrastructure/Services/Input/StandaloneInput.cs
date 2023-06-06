@@ -11,7 +11,7 @@ public class StandaloneInput : InputService
             if (axis == Vector2.zero)
                 axis = VectorAxis();
 
-            return axis;
+            return axis.normalized;
         }
     }
 

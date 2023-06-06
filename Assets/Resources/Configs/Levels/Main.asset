@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614b970940eb55b4ab0f0d769ac6e0f1, type: 3}
+  m_Name: Main
+  m_EditorClassIdentifier: 
+  LevelKey: Game
+  CountersData:
+  - Position: {x: 8.460001, y: 0, z: 0.00999999}
+    Rotation: {x: -0, y: 0.70710695, z: -0, w: -0.7071067}
+    Type: 5
+    KitchenObjectType: 0
+  - Position: {x: 1.75, y: 0, z: 4}
+    Rotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: 5.25, y: 0, z: 4}
+    Rotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+    Type: 4
+    KitchenObjectType: 1
+  - Position: {x: -0.23999977, y: 0, z: -3.9}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    Type: 6
+    KitchenObjectType: 0
+  - Position: {x: 0, y: 0, z: 4}
+    Rotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+    Type: 2
+    KitchenObjectType: 0
+  - Position: {x: -1.75, y: 0, z: 4}
+    Rotation: {x: -0, y: -1, z: -0, w: -0.00000032782552}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: 1.4000001, y: 0, z: -3.7100046}
+    Rotation: {x: -0, y: 0.00000041723246, z: -0, w: 1}
+    Type: 3
+    KitchenObjectType: 0
+  - Position: {x: 5.15, y: 0, z: -3.710002}
+    Rotation: {x: -0, y: 0.00000041723246, z: -0, w: 1}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: -1.7399998, y: 0, z: -3.9}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    Type: 6
+    KitchenObjectType: 0
+  - Position: {x: -3.646646, y: 0, z: -2.5953326}
+    Rotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: -3.6466463, y: 0, z: 2.654667}
+    Rotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+    Type: 4
+    KitchenObjectType: 5
+  - Position: {x: -3.646646, y: 0, z: 0.9046669}
+    Rotation: {x: -0, y: 0.7071062, z: -0, w: 0.7071075}
+    Type: 4
+    KitchenObjectType: 3
+  - Position: {x: 6.9, y: 0, z: -3.71}
+    Rotation: {x: -0, y: 0.00000041723246, z: -0, w: 1}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: 8.46, y: 0, z: 2.01}
+    Rotation: {x: -0, y: 0.70710695, z: -0, w: -0.7071067}
+    Type: 5
+    KitchenObjectType: 0
+  - Position: {x: -3.646646, y: 0, z: -0.8453331}
+    Rotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+    Type: 1
+    KitchenObjectType: 0
+  - Position: {x: 8.460002, y: 0, z: -1.99}
+    Rotation: {x: -0, y: 0.70710695, z: -0, w: -0.7071067}
+    Type: 5
+    KitchenObjectType: 0
+  - Position: {x: 3.5, y: 0, z: 4}
+    Rotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+    Type: 4
+    KitchenObjectType: 9
+  - Position: {x: 7, y: 0, z: 4}
+    Rotation: {x: -0, y: 1, z: -0, w: 0}
+    Type: 4
+    KitchenObjectType: 2
+  - Position: {x: 3.313889, y: 0, z: -3.7099943}
+    Rotation: {x: -0, y: 0.00000041723246, z: -0, w: 1}
+    Type: 7
+    KitchenObjectType: 0

@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Plate : KitchenObject
 {
-    [field:SerializeField] public PlateUIHandler UiHandler { get; private set; }
-
+    [SerializeField] private PlateUIHandler _uiHandler;
     [SerializeField] private Transform _kitchenObjectParent;
 
     private const int MaxIngredientAmount = 5;
@@ -28,7 +27,7 @@ public class Plate : KitchenObject
         return ingredients;
     }
 
-    public bool CanKitchenObjectBeTaken(KitchenObject kitchenObject)
+    public bool CanTakeKitchenObject(KitchenObject kitchenObject)
     {
         if (kitchenObject == null)
             return false;
@@ -45,8 +44,10 @@ public class Plate : KitchenObject
             return;
 
         kitchenObject.HasBeenTaken?.Invoke();
+
         _ingredients.Add(kitchenObject.Type, kitchenObject);
         kitchenObject.SetParent(_kitchenObjectParent);
-        UiHandler.AddIngredientOfType(kitchenObject.Type);
+
+        _uiHandler.AddIngredientOfType(kitchenObject.Icon);
     }
 }

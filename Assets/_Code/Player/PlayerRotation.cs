@@ -3,8 +3,13 @@
 public class PlayerRotation : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _movement;
-    [SerializeField, Header("Settings"), Range(7f, 20f)] private float _rotationSpeed = 5f;
-    
+    [SerializeField] private PlayerConfig _config;
+
+    private float _rotationSpeed;
+
+    private void Awake() => 
+        _rotationSpeed = _config.RotationSpeed;
+
     private void Update()
     {
         if (_movement.IsWalking)

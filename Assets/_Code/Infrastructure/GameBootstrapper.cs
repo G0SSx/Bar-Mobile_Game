@@ -3,26 +3,35 @@ using Zenject;
 
 public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
 {
-    public static InputService Input;
-    
-    private Game _game; // DO ACTUALLY SOMETHING WITH THIS FIELD
-    private GameStateMachine _gameStateMachine;
-    private SceneLoader _sceneLoader;
+    private Game _game;
     private IGameFactory _factory;
     private IPersistentProgressService _progressService;
+    private ISaveLoadService _saveLoadService;
+    private IUIFactory _uiFactory;
+    private ICountersFactory _countersFactory;
+    private IStaticDataService _staticDataService;
 
     [Inject]
-    private void Construct(IGameFactory factory, IPersistentProgressService progressService)
+    private void Construct(IGameFactory factory, IPersistentProgressService progressService, 
+        ISaveLoadService saveLoadService, IUIFactory uiFactory, 
+        ICountersFactory countersFactory, IStaticDataService staticDataService)
     {
         _factory = factory;
         _progressService = progressService;
+        _saveLoadService = saveLoadService;
+        _uiFactory = uiFactory;
+        _countersFactory = countersFactory;
+        _staticDataService = staticDataService;
     }
 
-    private void Awake()
-    {
-        _sceneLoader = new SceneLoader(this);
+    private void Awake() => 
+        DontDestroyOnLoad(gameObject);
 
-        _gameStateMachine = new GameStateMachine(_sceneLoader, _factory, _progressService);
-        _gameStateMachine.Enter<BootstrapState>();
+    private void Start()
+    {
+        _game = new Game(this, _factory, _progressService, _saveLoadService, _uiFactory,
+            _countersFactory, _staticDataService);
+
+        _game.GameStateMachine.Enter<LoadProgressState>();
     }
 }

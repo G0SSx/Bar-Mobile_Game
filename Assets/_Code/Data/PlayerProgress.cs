@@ -3,10 +3,12 @@
 [Serializable]
 public class PlayerProgress
 {
-    public float Score;
+    public ScoreData HighScore;
+    public ScoreData CurrentScore;
 
-    public PlayerProgress(float score)
+    public PlayerProgress()
     {
-        Score = score;
+        HighScore = new();
+        CurrentScore = new();
     }
 }

@@ -13,11 +13,11 @@
         {
             return ReturnKitchenObject();
         }
-        else if (playersObject.IsCooked && kitchenObject is Plate plate && plate.CanKitchenObjectBeTaken(playersObject))
+        else if (playersObject.IsCooked && kitchenObject is Plate plate && plate.CanTakeKitchenObject(playersObject))
         {
             plate.TakeKitchenObject(playersObject);
         }
-        else if (playersObject is Plate playersPlate && playersPlate.CanKitchenObjectBeTaken(kitchenObject))
+        else if (playersObject is Plate playersPlate && playersPlate.CanTakeKitchenObject(kitchenObject))
         {
             playersPlate.TakeKitchenObject(ReturnKitchenObject());
         }

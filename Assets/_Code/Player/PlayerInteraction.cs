@@ -1,43 +1,40 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Transform _kitchenObjectParent;
-    [SerializeField] private float _interactDistance = 1.5f;
-    [SerializeField] private float _interactionYOffset = 0.75f;
     [SerializeField] private LayerMask _interactableLayer;
+    [SerializeField] private PlayerConfig _config;
 
-    private InputActions _input;
+    private const float InteractionYOffset = 0.75f;
+
+    private float _interactionDistance;
+    private IInputService _input;
     private BaseCounter _selectedCounter;
     private KitchenObject _kitchenObject;
 
     [Inject]
-    private void Construct(InputActions input)
-    {
+    public void Construct(IInputService input) => 
         _input = input;
-    }
 
-    private void OnDisable() => 
-        _input.Player.Interact.performed -= Interact;
-
-    private void OnEnable() => 
-        _input.Player.Interact.performed += Interact;
+    private void Awake() => 
+        _interactionDistance = _config.InteractionDistance;
 
     private void Update()
     {
-        if (TryReycastCounter(out BaseCounter counter))
+        if (TryRaycastCounter(out BaseCounter counter))
         {
-            if (_selectedCounter == counter)
-                return;
-
-            SelectNewCounter(counter);
+            if (_selectedCounter != counter)
+                SelectNewCounter(counter);
         }
         else if (_selectedCounter != null)
         {
             UnselectCounter();
         }
+
+        if (_input.IsInterationButtonUp() && _selectedCounter != null)
+            Interact();
     }
 
     private void SelectNewCounter(BaseCounter counter)
@@ -63,11 +60,8 @@ public class PlayerInteraction : MonoBehaviour
         _selectedCounter = null;
     }
 
-    private void Interact(InputAction.CallbackContext context)
+    private void Interact()
     {
-        if (_selectedCounter == null)
-            return;
-        
         KitchenObject kitchenObject = _selectedCounter.Interact(_kitchenObject);
 
         if (kitchenObject != null)
@@ -79,17 +73,17 @@ public class PlayerInteraction : MonoBehaviour
         _kitchenObject = kitchenObject;
         _kitchenObject.SetParent(_kitchenObjectParent);
         _kitchenObject.HasBeenTaken += KitchenObjectTaken;
-        _kitchenObject.DeleteObject += KitchenObjectDeleteRequest;
+        _kitchenObject.DeleteObject += KitchenObjectDelete;
     }
 
     private void KitchenObjectTaken()
     {
         _kitchenObject.HasBeenTaken -= KitchenObjectTaken;
-        _kitchenObject.DeleteObject -= KitchenObjectDeleteRequest;
+        _kitchenObject.DeleteObject -= KitchenObjectDelete;
         _kitchenObject = null;
     }
 
-    private void KitchenObjectDeleteRequest()
+    private void KitchenObjectDelete()
     {
         if (_kitchenObject != null)
         {
@@ -98,10 +92,10 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private bool TryReycastCounter(out BaseCounter counter)
+    private bool TryRaycastCounter(out BaseCounter counter)
     {
-        Vector3 start = transform.position.AddY(_interactionYOffset);
-        Physics.Raycast(start, transform.forward, out RaycastHit hit, _interactDistance, _interactableLayer);
+        Vector3 start = transform.position.AddY(InteractionYOffset);
+        Physics.Raycast(start, transform.forward, out RaycastHit hit, _interactionDistance, _interactableLayer);
         counter = null;
 
         if (hit.transform && hit.transform.TryGetComponent(out counter))

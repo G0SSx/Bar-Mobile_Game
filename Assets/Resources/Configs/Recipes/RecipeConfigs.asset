@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd90faa664024b4a93368b953c1b3ca, type: 3}
+  m_Name: RecipeConfigs
+  m_EditorClassIdentifier: 
+  <Recipes>k__BackingField:
+  - Title: Burger
+    Ingredients:
+    - {fileID: 11400000, guid: 7edf6c8619ad5d94ba0d5baecf19c008, type: 2}
+    - {fileID: 11400000, guid: 19f3c9936aa2bd341a71febec8941d63, type: 2}
+  - Title: Cheeseburger
+    Ingredients:
+    - {fileID: 11400000, guid: 7edf6c8619ad5d94ba0d5baecf19c008, type: 2}
+    - {fileID: 11400000, guid: 19f3c9936aa2bd341a71febec8941d63, type: 2}
+    - {fileID: 11400000, guid: 27662cc2218ff9640afb11608e1a48c1, type: 2}
+  - Title: Mega Burger
+    Ingredients:
+    - {fileID: 11400000, guid: 7edf6c8619ad5d94ba0d5baecf19c008, type: 2}
+    - {fileID: 11400000, guid: 530c5e1f5356ec040a90d71077417b38, type: 2}
+    - {fileID: 11400000, guid: 27662cc2218ff9640afb11608e1a48c1, type: 2}
+    - {fileID: 11400000, guid: 19f3c9936aa2bd341a71febec8941d63, type: 2}
+    - {fileID: 11400000, guid: 8eff5b9145b86594f92f2c59ee63b17e, type: 2}
+  - Title: Salad
+    Ingredients:
+    - {fileID: 11400000, guid: 530c5e1f5356ec040a90d71077417b38, type: 2}
+    - {fileID: 11400000, guid: 8eff5b9145b86594f92f2c59ee63b17e, type: 2}
+    - {fileID: 11400000, guid: 27662cc2218ff9640afb11608e1a48c1, type: 2}

@@ -11,12 +11,12 @@ public class PlatesCounter : BaseCounter
     private const byte _maxPlatesAmount = 3;
     private const float _plateHeight = .15f;
 
-    private KitchenObjectsFactory _factory;
+    private IKitchenObjectsFactory _factory;
     private Stack<KitchenObject> _plates;
     private float _spawnTimer;
 
     [Inject]
-    private void Construct(KitchenObjectsFactory factory) => 
+    private void Construct(IKitchenObjectsFactory factory) => 
         _factory = factory;
 
     private void Awake() => 
@@ -75,7 +75,7 @@ public class PlatesCounter : BaseCounter
     {
         KitchenObject plate = _factory.CreateKitchenObject(KitchenObjectType.Plate);
         plate.SetParent(_platesParent);
-        
+
         if (_plates.Count > 0)
             plate.transform.position = plate.transform.position.AddY(_plates.Count * _plateHeight);
         

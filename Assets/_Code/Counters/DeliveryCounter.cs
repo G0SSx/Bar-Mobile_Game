@@ -1,106 +1,101 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using Zenject;
 
 public class DeliveryCounter : BaseCounter
 {
-    public Action<int> OnOrderAccepted;
-
-    [SerializeField] private RecipeConfigs _recipeConfigs;
-    [SerializeField] private Recipe _recipe;
-    [SerializeField] private GameObject _orderIconObject;
     [SerializeField] private InteractAndDenySoundCounter _sounds;
+    [SerializeField] private RecipeConfigs _recipeConfigs;
+    [SerializeField] private RecipeUIHandler _recipeUI;
 
-    private IconsFactory _iconsFactory;
+    private IPersistentProgressService _progress;
     private RecipeData _recipeData;
+    private IUIFactory _factory;
 
     [Inject]
-    private void Construct(IconsFactory iconsFactory)
+    private void Construct(IPersistentProgressService progress, IUIFactory factory)
     {
-        _iconsFactory = iconsFactory;
+        _progress = progress;
+        _factory = factory;
     }
 
-    private void Start()
-    {
-        RequestRecipe();
-    }
+    private void Start() =>
+        GetNewRecipe();
 
     public override KitchenObject Interact(KitchenObject playersObject)
     {
-        if (playersObject is Plate plate)
+        if (playersObject == null || playersObject is not Plate)
+            return DenyRecipe();
+
+        if (IngredientsMatch(playersObject as Plate))
         {
-            if (IngredientsMatches(plate))
-            {
-                AcceptOrderWithSound(playersObject);
-            }
+            AcceptOrder(playersObject);
+            GetNewRecipe();
         }
 
-        _sounds.PlayDenySound();
-        return null;
+        return DenyRecipe();
     }
 
-    private void RequestRecipe()
+    private void AcceptOrder(KitchenObject playersObject)
+    {
+        _progress.Progress.CurrentScore.AddScore(_recipeData.Ingredients.Length);
+        _sounds.PlayInteractSound();
+        playersObject.DeleteObject?.Invoke();
+        _recipeUI.RecipeDelivered();
+    }
+
+    private void GetNewRecipe()
     {
         _recipeData = GetRandomRecipe();
-        _recipe.SetTitle(_recipeData.Title);
+        _recipeUI.SetTitle(_recipeData.Title);
 
         foreach (KitchenObjectConfig ingredient in _recipeData.Ingredients)
         {
-            GameObject orderPrefab = Instantiate(_orderIconObject);
-            Sprite iconSprite = _iconsFactory.GetSpriteOfType(ingredient.Type);
-            orderPrefab.GetComponent<Image>().sprite = iconSprite;
-            _recipe.AddIconToRecipe(orderPrefab);
+            GameObject iconObject = _factory.CreateIconObject(ingredient.Icon);
+            _recipeUI.AddIconObject(iconObject);
         }
     }
 
-    private RecipeData GetRandomRecipe()
-    {
-        int randomIndex = UnityEngine.Random.Range(0, _recipeConfigs.Recipes.Length);
-        return _recipeConfigs.Recipes[randomIndex];
-    }
-
-    private void AcceptOrderWithSound(KitchenObject playersObject)
-    {
-        _sounds.PlayInteractSound();
-        playersObject.DeleteObject?.Invoke();
-        Destroy(playersObject.gameObject);
-        OnOrderAccepted?.Invoke(_recipeData.Ingredients.Length);
-        _recipe.RecipeDelivered();
-        RequestRecipe();
-    }
-
-    private bool IngredientsMatches(Plate plate)
+    private bool IngredientsMatch(Plate plate)
     {
         KitchenObjectType[] playersIngredients = plate.GetIngredientsByType();
 
         if (playersIngredients.Length != _recipeData.Ingredients.Length)
             return false;
 
-        int ingredientsMatched = GetMatchedIngredientsAmount(playersIngredients);
-
-        if (ingredientsMatched == _recipeData.Ingredients.Length)
+        if (IngredientsMatch(playersIngredients))
             return true;
 
         return false;
     }
 
-    private int GetMatchedIngredientsAmount(KitchenObjectType[] playersIngredients)
+    private RecipeData GetRandomRecipe()
     {
-        int ingredientsMatched = 0;
+        int randomIndex = Random.Range(0, _recipeConfigs.Recipes.Length);
+        return _recipeConfigs.Recipes[randomIndex];
+    }
 
-        for (int i = 0; i < playersIngredients.Length; i++)
+    private KitchenObject DenyRecipe()
+    {
+        _sounds.PlayDenySound();
+        return null;
+    }
+
+    private bool IngredientsMatch(KitchenObjectType[] playersIngredients)
+    {
+        int matchedIngredietnsAmount = 0;
+
+        foreach (KitchenObjectType kitchenObjectType in playersIngredients)
         {
             foreach (KitchenObjectConfig recipeIngredients in _recipeData.Ingredients)
             {
-                if (playersIngredients[i] == recipeIngredients.Type)
+                if (kitchenObjectType == recipeIngredients.Type)
                 {
-                    ingredientsMatched++;
+                    matchedIngredietnsAmount++;
                     break;
                 }
             }
         }
 
-        return ingredientsMatched;
+        return matchedIngredietnsAmount == _recipeData.Ingredients.Length;
     }
 }

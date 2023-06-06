@@ -13,14 +13,14 @@ public class StoveCounter : ContainmentCounter
     [SerializeField, Range(2.5f, 6f)] private float _timeToCook;
     [SerializeField, Range(4f, 8f)] private float _timeToBurn;
 
-    private KitchenObjectsFactory _factory;
+    private IKitchenObjectsFactory _factory;
     private CookingState _state;
     private float _cookingProgress;
 
     private enum CookingState { WaitingForMeat = 0, Cooking, Burning, MeatBurned }
 
     [Inject]
-    private void Construct(KitchenObjectsFactory factory) => 
+    private void Construct(IKitchenObjectsFactory factory) => 
         _factory = factory;
 
     public override KitchenObject Interact(KitchenObject playersObject)
@@ -35,7 +35,7 @@ public class StoveCounter : ContainmentCounter
             StopCooking();
             return ReturnKitchenObject();
         }
-        else if (playersObject is Plate plate && plate.CanKitchenObjectBeTaken(kitchenObject))
+        else if (playersObject is Plate plate && plate.CanTakeKitchenObject(kitchenObject))
         {
             StopCooking();
             plate.TakeKitchenObject(ReturnKitchenObject());

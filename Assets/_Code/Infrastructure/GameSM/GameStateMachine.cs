@@ -3,17 +3,19 @@ using System;
 
 public class GameStateMachine
 {
-    private Dictionary<Type, IExitableState> _states;
+    private readonly Dictionary<Type, IExitableState> _states;
 
     private IExitableState _activeState;
 
-    public GameStateMachine(SceneLoader sceneLoader, IGameFactory factory, IPersistentProgressService progressService)
+    public GameStateMachine(SceneLoader sceneLoader, IGameFactory factory, IPersistentProgressService progressService, 
+        ISaveLoadService saveLoadService, IUIFactory uiFactory, ICountersFactory countersFactory, IStaticDataService staticDataService)
     {
         _states = new Dictionary<Type, IExitableState>
         {
-            [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, factory, progressService),
-            [typeof(GameLoopState)] = new GameLoopState(this),
+            [typeof(LoadProgressState)] = new LoadProgressState(this, progressService, saveLoadService),
+            [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, factory, progressService, uiFactory, 
+                staticDataService, countersFactory),
+            [typeof(GameLoopState)] = new GameLoopState(),
         };
     }
 

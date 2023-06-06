@@ -4,22 +4,22 @@ using Zenject;
 public class CutterCounter : ContainmentCounter
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private CuttableKitchenObjectsConfig _cuttableObjectsConfig;
+    [SerializeField] private KitchenObjectsCutPercentage _cuttableObjectsConfig;
     [SerializeField] private ProgressBar _progressBar;
     [SerializeField] private CookingSoundCounter _sounds;
 
-    private const string _cutTriggerName = "Cut";
-    private const int _maxPercentage = 100;
-    private const int _defaultCutPercent = 34;
+    private const string CutTriggerName = "Cut";
+    private const int MaxPercentage = 100;
+    private const int DefaultCutPercent = 34;
 
-    private KitchenObjectsFactory _factory;
+    private IKitchenObjectsFactory _factory;
     private CuttingState _state = CuttingState.WaitingKitchenObject;
     private int _cuttingProgressPercentage;
 
     private enum CuttingState { WaitingKitchenObject, Cutting, ObjectSliced }
 
     [Inject]
-    private void Construct(KitchenObjectsFactory factory) => 
+    private void Construct(IKitchenObjectsFactory factory) => 
         _factory = factory;
 
     public override KitchenObject Interact(KitchenObject playersObject)
@@ -27,28 +27,20 @@ public class CutterCounter : ContainmentCounter
         switch (_state)
         {
             case CuttingState.WaitingKitchenObject:
-                if (playersObject != null && playersObject.IsCuttable)
-                {
+                if (AbleToTake(playersObject))
                     TakeKitchenObject(playersObject);
-                    _state = CuttingState.Cutting;
-                    _progressBar.SetGoal(_maxPercentage);
-                }
                 break;
-
             case CuttingState.Cutting:
                 if (playersObject == null)
                     CutWithSound();
                 break;
-
             case CuttingState.ObjectSliced:
                 if (playersObject == null)
                 {
-                    _state = CuttingState.WaitingKitchenObject;
                     return ReturnKitchenObject();
                 }
-                else if (playersObject is Plate plate && plate.CanKitchenObjectBeTaken(kitchenObject))
+                else if (playersObject is Plate plate && plate.CanTakeKitchenObject(kitchenObject))
                 {
-                    _state = CuttingState.WaitingKitchenObject;
                     plate.TakeKitchenObject(ReturnKitchenObject());
                 }
                 break;
@@ -57,14 +49,30 @@ public class CutterCounter : ContainmentCounter
         return null;
     }
 
+    protected override KitchenObject ReturnKitchenObject()
+    {
+        _state = CuttingState.WaitingKitchenObject;
+        return base.ReturnKitchenObject();
+    }
+
+    protected override void TakeKitchenObject(KitchenObject kitchenObject)
+    {
+        _state = CuttingState.Cutting;
+        _progressBar.SetGoal(MaxPercentage);
+        base.TakeKitchenObject(kitchenObject);
+    }
+
+    private bool AbleToTake(KitchenObject kitchenObject) =>
+        kitchenObject != null && kitchenObject.IsCuttable;
+
     private void CutWithSound()
     {
         _sounds.PlayInteractionSound();
-        _animator.SetTrigger(_cutTriggerName);
+        _animator.SetTrigger(CutTriggerName);
         _cuttingProgressPercentage += GetCattingPercent();
         _progressBar.SetValue(_cuttingProgressPercentage);
 
-        if (_cuttingProgressPercentage >= _maxPercentage)
+        if (_cuttingProgressPercentage >= MaxPercentage)
         {
             _cuttingProgressPercentage = 0;
             _progressBar.SetValue(0);
@@ -83,13 +91,13 @@ public class CutterCounter : ContainmentCounter
             return _cuttableObjectsConfig.CabbageCutPercent;
 
         Debug.LogWarning("Cutting percentage wasn't found for the object you tried to cut!");
-        return _defaultCutPercent;
+        return DefaultCutPercent;
     }
 
     private void CreateSlicedObject()
     {
         KitchenObjectType type = kitchenObject.Type;
         Destroy(kitchenObject.gameObject);
-        TakeKitchenObject(_factory.CreateSliceOfKitchenObject(type));
+        TakeKitchenObject(_factory.CreateSlicedKitchenObject(type));
     }
 }
