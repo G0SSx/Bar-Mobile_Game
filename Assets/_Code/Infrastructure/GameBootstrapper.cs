@@ -25,7 +25,7 @@ public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     }
 
     private void Awake() => 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
 
     private void Start()
     {

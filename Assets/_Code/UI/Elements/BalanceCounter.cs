@@ -2,24 +2,24 @@
 using Zenject;
 using TMPro;
 
-public class ScoreCounter : MonoBehaviour
+public class BalanceCounter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _text;
 
     private IPersistentProgressService _progress;
 
-    private int _score => _progress.Progress.CurrentScore.Score;
+    private int _money => _progress.Progress.Money.Money;
 
     [Inject]
     private void Construct(IPersistentProgressService progress)
     {
         _progress = progress;
-        _progress.Progress.CurrentScore.Changed += UpdateScore;
+        _progress.Progress.Money.Changed += UpdateScore;
     }
 
     private void Start() => 
         UpdateScore();
 
     private void UpdateScore() =>
-        _scoreText.text = $"Score: {_score}";
+        _text.text = $"Balance: {_money}";
 }

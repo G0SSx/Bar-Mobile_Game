@@ -3,12 +3,8 @@
 [Serializable]
 public class PlayerProgress
 {
-    public ScoreData HighScore;
-    public ScoreData CurrentScore;
+    public BalanceData Money;
 
-    public PlayerProgress()
-    {
-        HighScore = new();
-        CurrentScore = new();
-    }
+    public PlayerProgress() => 
+        Money = new();
 }

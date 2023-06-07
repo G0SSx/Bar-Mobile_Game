@@ -17,14 +17,8 @@ public class KitchenObjectsFactory : IKitchenObjectsFactory
     public KitchenObject CreateSlicedKitchenObject(KitchenObjectType type) =>
         CreateSlicedKitchenObjectAndInit(type);
 
-    public Sprite GetSpriteByType(KitchenObjectType type)
-    {
-        Sprite sprite = _staticData.ForKitchenObject(type).Icon;
-
-        Debug.Log(sprite == null);
-
-        return sprite;
-    }
+    public Sprite GetSpriteByType(KitchenObjectType type) =>
+        _staticData.ForKitchenObject(type).Icon;
 
     private KitchenObject CreateSlicedKitchenObjectAndInit(KitchenObjectType type)
     {

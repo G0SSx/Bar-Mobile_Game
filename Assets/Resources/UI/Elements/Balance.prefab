@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5218533947272057847}
   - component: {fileID: 5684786075083838561}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Balance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5656ca4c1a6c345af097d1a08fc54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 5218533947592090205}
+  _moneyText: {fileID: 5218533947592090205}
 --- !u!1 &5218533947592090207
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: 24'
+  m_text: 'Balance: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}

@@ -13,17 +13,12 @@ public class StaticDataService : IStaticDataService
             .LoadAll<KitchenObjectConfig>(AssetPath.KitchenObjectConfigs)
             .ToDictionary(key => key.Type, value => value);
 
-        foreach (KitchenObjectConfig ko in _kitchenObjects.Values)
-        {
-            Debug.Log(ko.Icon.name);
-        }
-
         _levels = Resources
             .LoadAll<LevelConfig>(AssetPath.LevelConfigs)
             .ToDictionary(key => key.LevelKey, value => value);
     }
 
-    public KitchenObjectConfig ForKitchenObject(KitchenObjectType type) => 
+    public KitchenObjectConfig ForKitchenObject(KitchenObjectType type) =>
         _kitchenObjects.TryGetValue(type, out KitchenObjectConfig config)
             ? config
             : null;

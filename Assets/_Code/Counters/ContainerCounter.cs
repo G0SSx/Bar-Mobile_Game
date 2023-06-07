@@ -13,12 +13,12 @@ public class ContainerCounter : BaseCounter
 
     private IKitchenObjectsFactory _factory;
 
-    private void Awake() => 
-        _renderer.sprite = _factory.GetSpriteByType(KitchenObjectType);
-
     [Inject]
     private void Construct(IKitchenObjectsFactory factory) => 
         _factory = factory;
+
+    private void Start() => 
+        _renderer.sprite = _factory.GetSpriteByType(KitchenObjectType);
 
     public override KitchenObject Interact(KitchenObject playersObject)
     {

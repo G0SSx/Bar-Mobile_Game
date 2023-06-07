@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class AssetProvider : IAssets
@@ -17,14 +18,41 @@ public class AssetProvider : IAssets
     public GameObject Instantiate(string path, Vector3 position) =>
         Object.Instantiate(LoadPrefab(path), position, Quaternion.identity);
 
-    public GameObject InstantiateWithZenject(string path) =>
-        _container.InstantiatePrefab(LoadPrefab(path));
+    public GameObject InstantiateWithZenject(string path)
+    {
+        GameObject prefab = _container.InstantiatePrefab(LoadPrefab(path));
 
-    public GameObject InstantiateWithZenject(string path, Transform parent) => 
-        _container.InstantiatePrefab(LoadPrefab(path), parent);
+        MoveObjectToActiveScene(prefab);
 
-    public GameObject InstantiateWithZenject(string path, Vector3 position) => 
-        _container.InstantiatePrefab(LoadPrefab(path), position, Quaternion.identity, null);
+        return prefab;
+    }
+
+    public GameObject InstantiateWithZenject(string path, Transform parent)
+    {
+        GameObject prefab = _container.InstantiatePrefab(LoadPrefab(path), parent); ;
+
+        MoveObjectToActiveScene(prefab);
+
+        return prefab; 
+    }
+
+    public GameObject InstantiateWithZenject(string path, Vector3 position)
+    {
+        GameObject prefab = _container.InstantiatePrefab(LoadPrefab(path), position, Quaternion.identity, null);
+
+        MoveObjectToActiveScene(prefab);
+
+        return prefab;
+    }
+
+    private void MoveObjectToActiveScene(GameObject prefab)
+    {
+        if (prefab.transform.parent != null)
+            return;
+
+        //After instantiating with DiContainer object for some raeson moved to DontDestoryOnLoad scene
+        SceneManager.MoveGameObjectToScene(prefab, SceneManager.GetActiveScene());
+    }
 
     private GameObject LoadPrefab(string path) =>
         Resources.Load<GameObject>(path);

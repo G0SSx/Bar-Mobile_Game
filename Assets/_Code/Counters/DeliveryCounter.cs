@@ -37,7 +37,7 @@ public class DeliveryCounter : BaseCounter
 
     private void AcceptOrder(KitchenObject playersObject)
     {
-        _progress.Progress.CurrentScore.AddScore(_recipeData.Ingredients.Length);
+        _progress.Progress.Money.AddMoney(_recipeData.Ingredients.Length);
         _sounds.PlayInteractSound();
         playersObject.DeleteObject?.Invoke();
         _recipeUI.RecipeDelivered();

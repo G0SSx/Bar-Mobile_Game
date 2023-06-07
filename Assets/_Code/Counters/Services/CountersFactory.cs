@@ -4,12 +4,8 @@ public class CountersFactory : ICountersFactory
 {
     private readonly IAssets _assets;
 
-    public CountersFactory(IAssets assets)
-    {
+    public CountersFactory(IAssets assets) => 
         _assets = assets;
-
-        //Get icon factory and put it into the containerCounter
-    }
 
     public GameObject CreateCounterOfType(Vector3 position, Quaternion rotationt, CounterType type, 
         KitchenObjectType kitchenObjectType)
