@@ -6,6 +6,5 @@ public abstract class Purchasable : MonoBehaviour
 
     public void Purchase()
     {
-
     }
 }
