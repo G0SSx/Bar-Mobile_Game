@@ -46,7 +46,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5218533947272057840, guid: e6792fa75ed4a6b42a63d5f2f3c601ae, type: 3}
       propertyPath: m_Name
-      value: Score
+      value: Balance
       objectReference: {fileID: 0}
     - target: {fileID: 5218533947272057847, guid: e6792fa75ed4a6b42a63d5f2f3c601ae, type: 3}
       propertyPath: m_Pivot.x
@@ -131,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 5218533947272057847, guid: e6792fa75ed4a6b42a63d5f2f3c601ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218533947592090205, guid: e6792fa75ed4a6b42a63d5f2f3c601ae, type: 3}
+      propertyPath: m_fontSize
+      value: 72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6792fa75ed4a6b42a63d5f2f3c601ae, type: 3}

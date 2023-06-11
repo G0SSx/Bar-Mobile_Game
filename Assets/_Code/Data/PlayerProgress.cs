@@ -3,8 +3,8 @@
 [Serializable]
 public class PlayerProgress
 {
-    public BalanceData Money;
+    public BalanceData Balance;
 
     public PlayerProgress() => 
-        Money = new();
+        Balance = new();
 }
