@@ -1,5 +1,4 @@
-﻿using Plugins.SimpleInput.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Code.Infrastructure.Services.Input
 {
@@ -12,7 +11,7 @@ namespace _Code.Infrastructure.Services.Input
 
         public abstract Vector2 Axis { get; }
 
-        public bool IsInterationButtonUp() =>
+        public bool IsInteractionButtonUp() =>
             UnityEngine.Input.GetKeyUp(AttackButtonKeyCode);
 
         public bool IsSettingsButtonUp() =>

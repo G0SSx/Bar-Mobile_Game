@@ -7,10 +7,8 @@ using _Code.Infrastructure.Services.SaveLoad;
 using _Code.Infrastructure.Services.StaticData;
 using _Code.KitchenObjects.Factory;
 using _Code.UI.Services.Factory;
-using Plugins.Zenject.Source.Install;
-using Plugins.Zenject.Source.Main;
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
 namespace _Code.Installers
 {

@@ -40,7 +40,7 @@ namespace _Code.Player
                 UnselectCounter();
             }
 
-            if (_input.IsInterationButtonUp() && _selectedCounter != null)
+            if (_input.IsInteractionButtonUp() && _selectedCounter != null)
                 Interact();
         }
 

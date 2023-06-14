@@ -1,4 +1,4 @@
-﻿using Plugins.Zenject.Source.Main;
+﻿using Zenject;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +6,7 @@ namespace _Code.Infrastructure.AssetManagement
 {
     public class AssetProvider : IAssets
     {
-        private DiContainer _container;
+        private readonly DiContainer _container;
 
         public AssetProvider(DiContainer container) => 
             _container = container;
@@ -31,7 +31,7 @@ namespace _Code.Infrastructure.AssetManagement
 
         public GameObject InstantiateWithZenject(string path, Transform parent)
         {
-            GameObject prefab = _container.InstantiatePrefab(LoadPrefab(path), parent); ;
+            GameObject prefab = _container.InstantiatePrefab(LoadPrefab(path), parent);
 
             MoveObjectToActiveScene(prefab);
 
@@ -52,7 +52,7 @@ namespace _Code.Infrastructure.AssetManagement
             if (prefab.transform.parent != null)
                 return;
 
-            //After instantiating with DiContainer object for some raeson moved to DontDestoryOnLoad scene
+            //After instantiating with DiContainer object for some reason moved to DontDestroyOnLoad scene
             SceneManager.MoveGameObjectToScene(prefab, SceneManager.GetActiveScene());
         }
 

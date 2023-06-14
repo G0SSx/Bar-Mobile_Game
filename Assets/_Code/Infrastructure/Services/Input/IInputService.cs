@@ -6,7 +6,7 @@ namespace _Code.Infrastructure.Services.Input
     {
         Vector2 Axis { get; }
 
-        bool IsInterationButtonUp();
+        bool IsInteractionButtonUp();
         bool IsSettingsButtonUp();
     }
 }
