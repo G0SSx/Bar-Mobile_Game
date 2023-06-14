@@ -1,40 +1,44 @@
-﻿using UnityEngine;
+﻿using _Code.Data;
 using DG.Tweening;
-using Zenject;
 using TMPro;
+using UnityEngine;
+using Zenject;
 
-public class BalanceCounter : MonoBehaviour
+namespace _Code.UI.Elements
 {
-    [SerializeField] private TextMeshProUGUI _text;
-
-    [Header("Balance changed animation settings")]
-    [SerializeField] private float _duration = 0.3f;
-    [SerializeField] private float _scaleAmount = 1.1f;
-
-    private IPersistentProgressService _progress;
-
-    private int _money => _progress.Progress.Balance.Money;
-
-    [Inject]
-    private void Construct(IPersistentProgressService progress)
+    public class BalanceCounter : MonoBehaviour
     {
-        _progress = progress;
-        _progress.Progress.Balance.Changed += UpdateScore;
-    }
+        [SerializeField] private TextMeshProUGUI _text;
 
-    private void Start() => 
-        UpdateScore();
+        [Header("Balance changed animation settings")]
+        [SerializeField] private float _duration = 0.3f;
+        [SerializeField] private float _scaleAmount = 1.1f;
 
-    private void UpdateScore()
-    {
-        _text.text = $"Balance: {_money}";
-        PlayBalanceChangedAnimation();
-    }
+        private IPersistentProgressService _progress;
 
-    private void PlayBalanceChangedAnimation()
-    {
-        transform
-            .DOScale(_scaleAmount, _duration)
-            .SetInverted(true);
+        private int _money => _progress.Progress.Balance.Money;
+
+        [Inject]
+        private void Construct(IPersistentProgressService progress)
+        {
+            _progress = progress;
+            _progress.Progress.Balance.Changed += UpdateScore;
+        }
+
+        private void Start() => 
+            UpdateScore();
+
+        private void UpdateScore()
+        {
+            _text.text = $"Balance: {_money}";
+            PlayBalanceChangedAnimation();
+        }
+
+        private void PlayBalanceChangedAnimation()
+        {
+            transform
+                .DOScale(_scaleAmount, _duration)
+                .SetInverted(true);
+        }
     }
 }
