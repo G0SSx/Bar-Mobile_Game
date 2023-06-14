@@ -1,53 +1,56 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : KitchenObject
+namespace _Code.KitchenObjects.PlateLogic
 {
-    [SerializeField] private PlateUIHandler _uiHandler;
-    [SerializeField] private Transform _kitchenObjectParent;
-
-    private const int MaxIngredientAmount = 5;
-
-    private Dictionary<KitchenObjectType, KitchenObject> _ingredients;
-
-    private void Awake() => 
-        _ingredients = new Dictionary<KitchenObjectType, KitchenObject>(MaxIngredientAmount);
-
-    public KitchenObjectType[] GetIngredientsByType()
+    public class Plate : KitchenObject
     {
-        KitchenObjectType[] ingredients = new KitchenObjectType[_ingredients.Count];
-        int index = 0;
+        [SerializeField] private PlateUIHandler _uiHandler;
+        [SerializeField] private Transform _kitchenObjectParent;
 
-        foreach(KitchenObject kitchenObject in _ingredients.Values)
+        private const int MaxIngredientAmount = 5;
+
+        private Dictionary<KitchenObjectType, KitchenObject> _ingredients;
+
+        private void Awake() => 
+            _ingredients = new Dictionary<KitchenObjectType, KitchenObject>(MaxIngredientAmount);
+
+        public KitchenObjectType[] GetIngredientsByType()
         {
-            ingredients[index] = kitchenObject.Type;
-            index++;
+            KitchenObjectType[] ingredients = new KitchenObjectType[_ingredients.Count];
+            int index = 0;
+
+            foreach(KitchenObject kitchenObject in _ingredients.Values)
+            {
+                ingredients[index] = kitchenObject.Type;
+                index++;
+            }
+
+            return ingredients;
         }
 
-        return ingredients;
-    }
+        public bool CanTakeKitchenObject(KitchenObject kitchenObject)
+        {
+            if (kitchenObject == null)
+                return false;
 
-    public bool CanTakeKitchenObject(KitchenObject kitchenObject)
-    {
-        if (kitchenObject == null)
+            if (kitchenObject.IsCooked && _ingredients.ContainsKey(kitchenObject.Type) == false)
+                return true;
+
             return false;
+        }
 
-        if (kitchenObject.IsCooked && _ingredients.ContainsKey(kitchenObject.Type) == false)
-            return true;
+        public void TakeKitchenObject(KitchenObject kitchenObject)
+        {
+            if (_ingredients.ContainsKey(kitchenObject.Type))
+                return;
 
-        return false;
-    }
+            kitchenObject.HasBeenTaken?.Invoke();
 
-    public void TakeKitchenObject(KitchenObject kitchenObject)
-    {
-        if (_ingredients.ContainsKey(kitchenObject.Type))
-            return;
+            _ingredients.Add(kitchenObject.Type, kitchenObject);
+            kitchenObject.SetParent(_kitchenObjectParent);
 
-        kitchenObject.HasBeenTaken?.Invoke();
-
-        _ingredients.Add(kitchenObject.Type, kitchenObject);
-        kitchenObject.SetParent(_kitchenObjectParent);
-
-        _uiHandler.AddIngredientOfType(kitchenObject.Icon);
+            _uiHandler.AddIngredientOfType(kitchenObject.Icon);
+        }
     }
 }

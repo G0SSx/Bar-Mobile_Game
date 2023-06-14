@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using _Code.Data;
 using UnityEngine;
 
-public interface IGameFactory
+namespace _Code.Infrastructure.Services.Factory
 {
-    List<ISavedProgressReader> ProgressReaders { get; }
-    List<ISavedProgress> ProgressWriters { get; }
+    public interface IGameFactory
+    {
+        List<ISavedProgressReader> ProgressReaders { get; }
+        List<ISavedProgress> ProgressWriters { get; }
 
-    GameObject CreatePlayer(Vector3 position);
-    void Cleanup();
+        GameObject CreatePlayer(Vector3 position);
+        void Cleanup();
+    }
 }

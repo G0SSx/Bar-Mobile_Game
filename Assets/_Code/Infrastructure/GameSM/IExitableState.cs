@@ -1,4 +1,7 @@
-﻿public interface IExitableState
+﻿namespace _Code.Infrastructure.GameSM
 {
-    void Exit();
+    public interface IExitableState
+    {
+        void Exit();
+    }
 }

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public interface IKitchenObjectsFactory
+namespace _Code.KitchenObjects.Factory
 {
-    KitchenObject CreateKitchenObject(KitchenObjectType type);
-    KitchenObject CreateSlicedKitchenObject(KitchenObjectType type);
-    Sprite GetSpriteByType(KitchenObjectType type);
+    public interface IKitchenObjectsFactory
+    {
+        KitchenObject CreateKitchenObject(KitchenObjectType type);
+        KitchenObject CreateSlicedKitchenObject(KitchenObjectType type);
+        Sprite GetSpriteByType(KitchenObjectType type);
+    }
 }

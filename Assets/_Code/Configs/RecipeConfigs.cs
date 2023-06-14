@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using _Code.Data;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "RecipeConfigs", menuName = "Configs/Recipes")]
-public class RecipeConfigs : ScriptableObject
+namespace _Code.Configs
 {
-    [field:SerializeField] public RecipeData[] Recipes { get; private set; }
+    [CreateAssetMenu(fileName = "RecipeConfigs", menuName = "Configs/Recipes")]
+    public class RecipeConfigs : ScriptableObject
+    {
+        [field:SerializeField] public RecipeData[] Recipes { get; private set; }
+    }
 }

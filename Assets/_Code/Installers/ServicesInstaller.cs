@@ -1,123 +1,137 @@
-﻿using UnityEngine;
+﻿using _Code.Counters.Services;
+using _Code.Data;
+using _Code.Infrastructure.AssetManagement;
+using _Code.Infrastructure.Services.Factory;
+using _Code.Infrastructure.Services.Input;
+using _Code.Infrastructure.Services.SaveLoad;
+using _Code.Infrastructure.Services.StaticData;
+using _Code.KitchenObjects.Factory;
+using _Code.UI.Services.Factory;
+using Plugins.Zenject.Source.Install;
+using Plugins.Zenject.Source.Main;
+using UnityEngine;
 using Zenject;
 
-public class ServicesInstaller : MonoInstaller
+namespace _Code.Installers
 {
-    [Inject]
-    private DiContainer _container;
-
-    public override void InstallBindings()
+    public class ServicesInstaller : MonoInstaller
     {
-        RegisterInput();
-        IAssets assets = RegisterAssetProvider();
-        IStaticDataService staticData = RegisterStaticDataProvider();
-        IPersistentProgressService progress = RegisterPersistentProgressService();
+        [Inject]
+        private DiContainer _container;
 
-        RegisterUIFactory(assets);
-        IGameFactory gameFactory = RegisterGameFactory(assets, progress);
-        RegisterSaveLoadService(progress, gameFactory);
-        RegisterKitchenObjectFactory(assets, staticData);
-        RegisterCountersFactory(assets);
-    }
+        public override void InstallBindings()
+        {
+            RegisterInput();
+            IAssets assets = RegisterAssetProvider();
+            IStaticDataService staticData = RegisterStaticDataProvider();
+            IPersistentProgressService progress = RegisterPersistentProgressService();
 
-    private void RegisterSaveLoadService(IPersistentProgressService progressService, IGameFactory gameFactory)
-    {
-        Container
-            .Bind<ISaveLoadService>()
-            .FromInstance(new SaveLoadService(progressService, gameFactory))
-            .AsSingle();
-    }
+            RegisterUIFactory(assets);
+            IGameFactory gameFactory = RegisterGameFactory(assets, progress);
+            RegisterSaveLoadService(progress, gameFactory);
+            RegisterKitchenObjectFactory(assets, staticData);
+            RegisterCountersFactory(assets);
+        }
 
-    private void RegisterInput()
-    {
-        Container
-            .Bind<IInputService>()
-            .FromInstance(RegisterInputService())
-            .AsSingle();
-    }
+        private void RegisterSaveLoadService(IPersistentProgressService progressService, IGameFactory gameFactory)
+        {
+            Container
+                .Bind<ISaveLoadService>()
+                .FromInstance(new SaveLoadService(progressService, gameFactory))
+                .AsSingle();
+        }
 
-    private IPersistentProgressService RegisterPersistentProgressService()
-    {
-        IPersistentProgressService progressService = new PersistentProgressService();
+        private void RegisterInput()
+        {
+            Container
+                .Bind<IInputService>()
+                .FromInstance(RegisterInputService())
+                .AsSingle();
+        }
 
-        Container
-            .Bind<IPersistentProgressService>()
-            .FromInstance(progressService)
-            .AsSingle();
+        private IPersistentProgressService RegisterPersistentProgressService()
+        {
+            IPersistentProgressService progressService = new PersistentProgressService();
 
-        return progressService;
-    }
+            Container
+                .Bind<IPersistentProgressService>()
+                .FromInstance(progressService)
+                .AsSingle();
 
-    private IStaticDataService RegisterStaticDataProvider()
-    {
-        IStaticDataService staticData = new StaticDataService();
-        staticData.LoadConfigs();
+            return progressService;
+        }
 
-        Container
-            .Bind<IStaticDataService>()
-            .FromInstance(staticData)
-            .AsSingle();
+        private IStaticDataService RegisterStaticDataProvider()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.LoadConfigs();
 
-        return staticData;
-    }
+            Container
+                .Bind<IStaticDataService>()
+                .FromInstance(staticData)
+                .AsSingle();
 
-    private IAssets RegisterAssetProvider()
-    {
-        IAssets assets = new AssetProvider(_container);
+            return staticData;
+        }
+
+        private IAssets RegisterAssetProvider()
+        {
+            IAssets assets = new AssetProvider(_container);
         
-        Container
-            .Bind<IAssets>()
-            .FromInstance(assets)
-            .AsSingle();
+            Container
+                .Bind<IAssets>()
+                .FromInstance(assets)
+                .AsSingle();
 
-        return assets;
-    }
+            return assets;
+        }
 
-    private InputService RegisterInputService()
-    {
-        if (Application.isEditor)
-            return new StandaloneInput();
-        else
-            return new MobileInput();
-    }
+        private InputService RegisterInputService()
+        {
+            if (Application.isEditor)
+                return new StandaloneInput();
+            else
+                return new MobileInput();
+        }
 
-    private void RegisterCountersFactory(IAssets assets)
-    {
-        Container.
-            Bind<ICountersFactory>()
-            .FromInstance(new CountersFactory(assets))
-            .AsSingle();
-    }
+        private void RegisterCountersFactory(IAssets assets)
+        {
+            Container.
+                Bind<ICountersFactory>()
+                .FromInstance(new CountersFactory(assets))
+                .AsSingle();
+        }
 
-    private void RegisterUIFactory(IAssets assets)
-    {
-        Container
-            .Bind<IUIFactory>()
-            .FromInstance(new UIFactory(assets))
-            .AsSingle();
-    }
+        private void RegisterUIFactory(IAssets assets)
+        {
+            Container
+                .Bind<IUIFactory>()
+                .FromInstance(new UIFactory(assets))
+                .AsSingle();
+        }
 
-    private IKitchenObjectsFactory RegisterKitchenObjectFactory(IAssets assets, IStaticDataService staticData)
-    {
-        IKitchenObjectsFactory factory = new KitchenObjectsFactory(assets, staticData);
+        private IKitchenObjectsFactory RegisterKitchenObjectFactory(IAssets assets, IStaticDataService staticData)
+        {
+            IKitchenObjectsFactory factory = new KitchenObjectsFactory(assets, staticData);
 
-        Container
-            .Bind<IKitchenObjectsFactory>()
-            .FromInstance(factory)
-            .AsSingle();
+            Container
+                .Bind<IKitchenObjectsFactory>()
+                .FromInstance(factory)
+                .AsSingle();
 
-        return factory;
-    }
+            return factory;
+        }
 
-    private IGameFactory RegisterGameFactory(IAssets assets, IPersistentProgressService progress)
-    {
-        IGameFactory gameFactory = new GameFactory(assets, progress);
+        private IGameFactory RegisterGameFactory(IAssets assets, IPersistentProgressService progress)
+        {
+            IGameFactory gameFactory = new GameFactory(assets, progress);
 
-        Container
-        .Bind<IGameFactory>()
-            .FromInstance(gameFactory)
-            .AsSingle();
+            Container
+                .Bind<IGameFactory>()
+                .FromInstance(gameFactory)
+                .AsSingle();
 
-        return gameFactory;
+            return gameFactory;
+        }
     }
 }

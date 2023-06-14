@@ -1,18 +1,21 @@
 ﻿using System;
 using UnityEngine;
 
-public sealed class Timer
+namespace _Code.Logic
 {
-    public float TimeLeft { get; private set; }
-
-    public void SetFinishTime(float finishTime)
+    public sealed class Timer
     {
-        if (finishTime <= 0)
-            throw new ArgumentException("Timer can't be set to 0 or less!");
+        public float TimeLeft { get; private set; }
 
-        TimeLeft = finishTime;
+        public void SetFinishTime(float finishTime)
+        {
+            if (finishTime <= 0)
+                throw new ArgumentException("Timer can't be set to 0 or less!");
+
+            TimeLeft = finishTime;
+        }
+
+        public void SubtractFrameTime() =>
+            TimeLeft -= Time.deltaTime;
     }
-
-    public void SubtractFrameTime() =>
-        TimeLeft -= Time.deltaTime;
 }

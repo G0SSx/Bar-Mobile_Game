@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
-public class TakeAndGiveSoundCounter : GiveSoundCounter
+namespace _Code.Counters.SoundLogic
 {
-    [SerializeField] private AudioClip[] _takeSounds;
-
-    public void PlayTakeSound()
+    public class TakeAndGiveSoundCounter : GiveSoundCounter
     {
-        int clipIndex = GetRandomSoundIndex(_takeSounds.Length);
-        AudioClip clip = _takeSounds[clipIndex];
-        audioSource.PlayOneShot(clip);
+        [SerializeField] private AudioClip[] _takeSounds;
+
+        public void PlayTakeSound()
+        {
+            int clipIndex = GetRandomSoundIndex(_takeSounds.Length);
+            AudioClip clip = _takeSounds[clipIndex];
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

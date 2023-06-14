@@ -1,52 +1,55 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProgressBar : MonoBehaviour
+namespace _Code.Logic
 {
-    [SerializeField] private Image _fillImage;
-    [SerializeField] private GameObject _visuals;
-
-    public float ProgressPercentage { get; private set; }
-    private float _goalValue;
-
-    private void Start()
+    public class ProgressBar : MonoBehaviour
     {
-        if (Camera.main.transform.right == transform.right)
-            Flip();
+        [SerializeField] private Image _fillImage;
+        [SerializeField] private GameObject _visuals;
 
-        if (_visuals.gameObject.activeSelf)
-            _visuals.gameObject.SetActive(false);
-    }
+        public float ProgressPercentage { get; private set; }
+        private float _goalValue;
 
-    public void SetGoal(float goalValue) => 
-        _goalValue = goalValue;
+        private void Start()
+        {
+            if (Camera.main.transform.right == transform.right)
+                Flip();
 
-    public void SetValue(float value)
-    {
-        ProgressPercentage = value;
-        FillSprite();
-    }
+            if (_visuals.gameObject.activeSelf)
+                _visuals.gameObject.SetActive(false);
+        }
 
-    private void FillSprite()
-    {
-        float smallestGoalValue = 0.01f;
-        if (_goalValue < smallestGoalValue)
-            Debug.LogWarning("Goal value wasn't set!");
+        public void SetGoal(float goalValue) => 
+            _goalValue = goalValue;
 
-        if (_fillImage.enabled)
-            _fillImage.fillAmount = ProgressPercentage / _goalValue;
+        public void SetValue(float value)
+        {
+            ProgressPercentage = value;
+            FillSprite();
+        }
+
+        private void FillSprite()
+        {
+            float smallestGoalValue = 0.01f;
+            if (_goalValue < smallestGoalValue)
+                Debug.LogWarning("Goal value wasn't set!");
+
+            if (_fillImage.enabled)
+                _fillImage.fillAmount = ProgressPercentage / _goalValue;
         
-        if (ProgressPercentage > 0 && ProgressPercentage < _goalValue)
-            _visuals.SetActive(true);
-        else
-            _visuals.SetActive(false);
-    }
+            if (ProgressPercentage > 0 && ProgressPercentage < _goalValue)
+                _visuals.SetActive(true);
+            else
+                _visuals.SetActive(false);
+        }
 
-    private void Flip()
-    {
-        transform.rotation = Quaternion.Euler(
-            transform.rotation.eulerAngles.x, 
-            transform.rotation.eulerAngles.y + 180, 
-            transform.rotation.eulerAngles.z);
+        private void Flip()
+        {
+            transform.rotation = Quaternion.Euler(
+                transform.rotation.eulerAngles.x, 
+                transform.rotation.eulerAngles.y + 180, 
+                transform.rotation.eulerAngles.z);
+        }
     }
 }

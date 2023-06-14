@@ -1,4 +1,7 @@
-﻿public interface IState : IExitableState
+﻿namespace _Code.Infrastructure.GameSM
 {
-    void Enter();
+    public interface IState : IExitableState
+    {
+        void Enter();
+    }
 }

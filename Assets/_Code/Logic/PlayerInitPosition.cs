@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class PlayerInitPosition : MonoBehaviour { }
+namespace _Code.Logic
+{
+    public class PlayerInitPosition : MonoBehaviour { }
+}

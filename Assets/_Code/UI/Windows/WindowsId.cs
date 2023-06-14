@@ -1,7 +1,10 @@
-﻿public enum WindowsId
+﻿namespace _Code.UI.Windows
 {
-    Unknown = 0,
-    Options = 1,
-    OrderWindow = 2,
-    OrderCard = 3,
+    public enum WindowsId
+    {
+        Unknown = 0,
+        Options = 1,
+        OrderWindow = 2,
+        OrderCard = 3,
+    }
 }

@@ -1,5 +1,10 @@
-﻿public interface ISaveLoadService
+﻿using _Code.Data;
+
+namespace _Code.Infrastructure.Services.SaveLoad
 {
-    void SaveProgress();
-    PlayerProgress LoadProgress();
+    public interface ISaveLoadService
+    {
+        void SaveProgress();
+        PlayerProgress LoadProgress();
+    }
 }

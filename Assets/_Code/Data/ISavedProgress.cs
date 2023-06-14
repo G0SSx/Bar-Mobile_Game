@@ -1,4 +1,7 @@
-﻿public interface ISavedProgress : ISavedProgressReader
+﻿namespace _Code.Data
 {
-    void UpdateProgress(PlayerProgress progress);
+    public interface ISavedProgress : ISavedProgressReader
+    {
+        void UpdateProgress(PlayerProgress progress);
+    }
 }

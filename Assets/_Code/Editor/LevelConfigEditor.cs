@@ -1,104 +1,111 @@
-﻿using UnityEngine.SceneManagement;
+﻿using System.Linq;
+using _Code.Configs;
+using _Code.Counters;
+using _Code.Counters.Logic;
+using _Code.Data;
 using UnityEditor;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.SceneManagement;
 
-[CustomEditor(typeof(LevelConfig))]
-public class LevelConfigEditor : UnityEditor.Editor
+namespace _Code.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(LevelConfig))]
+    public class LevelConfigEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-
-        LevelConfig levelConfig = (LevelConfig)target;
-
-        if (GUILayout.Button("Collect"))
+        public override void OnInspectorGUI()
         {
-            levelConfig.LevelKey = SceneManager.GetActiveScene().name;
+            base.OnInspectorGUI();
 
-            levelConfig.CountersData = FindObjectsOfType<CounterSpawnPoint>()
-                .Select(x => 
-                    new CounterSpawnPointData(x.transform.position, x.transform.rotation, x.Type, x.KitchenObjectType))
-                .ToList();
+            LevelConfig levelConfig = (LevelConfig)target;
 
-            EditorUtility.SetDirty(target);
-        }
-
-        if (GUILayout.Button("Create/Update counter spawn points"))
-            CreateCountersSpawnPoints();
-    }
-
-    private static void CreateCountersSpawnPoints()
-    {
-        BaseCounter[] counters = FindObjectsOfType<BaseCounter>();
-        CounterSpawnPoint[] spawnPoints = FindObjectsOfType<CounterSpawnPoint>();
-
-        foreach (BaseCounter counter in counters)
-        {
-            CounterSpawnPoint spawnPoint = CreateCounterSpawnPointObject();
-
-            if (IsPointExists(spawnPoints, spawnPoint))
+            if (GUILayout.Button("Collect"))
             {
-                Destroy(spawnPoint);
-                continue;
+                levelConfig.LevelKey = SceneManager.GetActiveScene().name;
+
+                levelConfig.CountersData = FindObjectsOfType<CounterSpawnPoint>()
+                    .Select(x => 
+                        new CounterSpawnPointData(x.transform.position, x.transform.rotation, x.Type, x.KitchenObjectType))
+                    .ToList();
+
+                EditorUtility.SetDirty(target);
             }
 
-            SetupSpawnPoint(counter, spawnPoint);
+            if (GUILayout.Button("Create/Update counter spawn points"))
+                CreateCountersSpawnPoints();
         }
-    }
 
-    private static void SetupSpawnPoint(BaseCounter counter, CounterSpawnPoint spawnPoint)
-    {
-        spawnPoint.name = "SpawnPointFor_" + counter.name;
-
-        spawnPoint.transform.position = counter.transform.position;
-        spawnPoint.transform.rotation = counter.transform.rotation;
-        spawnPoint.Type = GetCounterType(counter);
-
-        if (counter is ContainerCounter container)
-            spawnPoint.KitchenObjectType = container.KitchenObjectType;
-    }
-
-    private static bool IsPointExists(CounterSpawnPoint[] spawnPoints, CounterSpawnPoint spawnPoint)
-    {
-        foreach (CounterSpawnPoint point in spawnPoints)
+        private static void CreateCountersSpawnPoints()
         {
-            if (point.transform.position == spawnPoint.transform.position)
-                return true;
+            BaseCounter[] counters = FindObjectsOfType<BaseCounter>();
+            CounterSpawnPoint[] spawnPoints = FindObjectsOfType<CounterSpawnPoint>();
+
+            foreach (BaseCounter counter in counters)
+            {
+                CounterSpawnPoint spawnPoint = CreateCounterSpawnPointObject();
+
+                if (IsPointExists(spawnPoints, spawnPoint))
+                {
+                    Destroy(spawnPoint);
+                    continue;
+                }
+
+                SetupSpawnPoint(counter, spawnPoint);
+            }
         }
 
-        return false;
-    }
-
-    private static CounterType GetCounterType(BaseCounter counter)
-    {
-        switch (counter.GetType().Name)
+        private static void SetupSpawnPoint(BaseCounter counter, CounterSpawnPoint spawnPoint)
         {
-            case nameof(StoveCounter):
-                return CounterType.Stove;
-            case nameof(CutterCounter):
-                return CounterType.Cutter;
-            case nameof(DeliveryCounter):
-                return CounterType.Delivery;
-            case nameof(ClearCounter):
-                return CounterType.Clear;
-            case nameof(PlatesCounter):
-                return CounterType.Plates;
-            case nameof(ContainerCounter):
-                return CounterType.Container;
-            case nameof(TrashCounter):
-                return CounterType.Trash;
-            default:
-                break;
+            spawnPoint.name = "SpawnPointFor_" + counter.name;
+
+            spawnPoint.transform.position = counter.transform.position;
+            spawnPoint.transform.rotation = counter.transform.rotation;
+            spawnPoint.Type = GetCounterType(counter);
+
+            if (counter is ContainerCounter container)
+                spawnPoint.KitchenObjectType = container.KitchenObjectType;
         }
 
-        return CounterType.Unknown;
-    }
+        private static bool IsPointExists(CounterSpawnPoint[] spawnPoints, CounterSpawnPoint spawnPoint)
+        {
+            foreach (CounterSpawnPoint point in spawnPoints)
+            {
+                if (point.transform.position == spawnPoint.transform.position)
+                    return true;
+            }
 
-    private static CounterSpawnPoint CreateCounterSpawnPointObject()
-    {
-        GameObject spawnPointObject = new GameObject();
+            return false;
+        }
 
-        return spawnPointObject.AddComponent<CounterSpawnPoint>();
+        private static CounterType GetCounterType(BaseCounter counter)
+        {
+            switch (counter.GetType().Name)
+            {
+                case nameof(StoveCounter):
+                    return CounterType.Stove;
+                case nameof(CutterCounter):
+                    return CounterType.Cutter;
+                case nameof(DeliveryCounter):
+                    return CounterType.Delivery;
+                case nameof(ClearCounter):
+                    return CounterType.Clear;
+                case nameof(PlatesCounter):
+                    return CounterType.Plates;
+                case nameof(ContainerCounter):
+                    return CounterType.Container;
+                case nameof(TrashCounter):
+                    return CounterType.Trash;
+                default:
+                    break;
+            }
+
+            return CounterType.Unknown;
+        }
+
+        private static CounterSpawnPoint CreateCounterSpawnPointObject()
+        {
+            GameObject spawnPointObject = new GameObject();
+
+            return spawnPointObject.AddComponent<CounterSpawnPoint>();
+        }
     }
 }

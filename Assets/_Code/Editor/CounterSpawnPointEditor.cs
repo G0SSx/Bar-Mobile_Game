@@ -1,13 +1,17 @@
-﻿using UnityEditor;
+﻿using _Code.Counters.Logic;
+using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(CounterSpawnPoint))]
-public class CounterSpawnPointEditor : UnityEditor.Editor
+namespace _Code.Editor
 {
-    [DrawGizmo(GizmoType.Active | GizmoType.Pickable | GizmoType.NonSelected)]
-    public static void RenderCustomGizmo(CounterSpawnPoint point, GizmoType gizmo)
+    [CustomEditor(typeof(CounterSpawnPoint))]
+    public class CounterSpawnPointEditor : UnityEditor.Editor
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(point.transform.position, 0.3f);
+        [DrawGizmo(GizmoType.Active | GizmoType.Pickable | GizmoType.NonSelected)]
+        public static void RenderCustomGizmo(CounterSpawnPoint point, GizmoType gizmo)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(point.transform.position, 0.3f);
+        }
     }
 }

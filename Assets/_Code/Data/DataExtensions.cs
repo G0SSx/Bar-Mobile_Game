@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 
-public static class DataExtensions
+namespace _Code.Data
 {
-    public static T ToDeserialized<T>(this string json) =>
-        JsonUtility.FromJson<T>(json);
+    public static class DataExtensions
+    {
+        public static T ToDeserialized<T>(this string json) =>
+            JsonUtility.FromJson<T>(json);
 
-    public static string ToJson(this object obj) =>
-        JsonUtility.ToJson(obj);
+        public static string ToJson(this object obj) =>
+            JsonUtility.ToJson(obj);
+    }
 }

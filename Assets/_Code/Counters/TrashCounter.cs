@@ -1,17 +1,23 @@
-﻿using UnityEngine;
+﻿using _Code.Counters.Logic;
+using _Code.Counters.SoundLogic;
+using _Code.KitchenObjects;
+using UnityEngine;
 
-public class TrashCounter : BaseCounter
+namespace _Code.Counters
 {
-    [SerializeField] private GiveSoundCounter _sounds;
-
-    public override KitchenObject Interact(KitchenObject playersObject)
+    public class TrashCounter : BaseCounter
     {
-        if (playersObject != null)
-        {
-            playersObject.DeleteObject?.Invoke();
-            _sounds.PlayGiveSound();
-        }
+        [SerializeField] private GiveSoundCounter _sounds;
 
-        return null;
+        public override KitchenObject Interact(KitchenObject playersObject)
+        {
+            if (playersObject != null)
+            {
+                playersObject.DeleteObject?.Invoke();
+                _sounds.PlayGiveSound();
+            }
+
+            return null;
+        }
     }
 }

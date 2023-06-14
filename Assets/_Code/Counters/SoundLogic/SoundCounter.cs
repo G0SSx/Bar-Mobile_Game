@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class SoundCounter : MonoBehaviour
+namespace _Code.Counters.SoundLogic
 {
-    [SerializeField] protected AudioSource audioSource;
-
-    public int GetRandomSoundIndex(int ClipsCountLength)
+    public class SoundCounter : MonoBehaviour
     {
-        return Random.Range(0, ClipsCountLength);
+        [SerializeField] protected AudioSource audioSource;
+
+        public int GetRandomSoundIndex(int ClipsCountLength)
+        {
+            return Random.Range(0, ClipsCountLength);
+        }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
 
-[Serializable]
-public class PlayerProgress
+namespace _Code.Data
 {
-    public BalanceData Balance;
+    [Serializable]
+    public class PlayerProgress
+    {
+        public BalanceData Balance;
 
-    public PlayerProgress() => 
-        Balance = new();
+        public PlayerProgress() => 
+            Balance = new();
+    }
 }

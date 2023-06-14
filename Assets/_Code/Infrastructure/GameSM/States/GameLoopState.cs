@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-
-public class GameLoopState : IState
+﻿namespace _Code.Infrastructure.GameSM.States
 {
-    public void Enter()
+    public class GameLoopState : IState
     {
-    }
+        public void Enter()
+        {
+        }
 
-    public void Exit()
-    {
+        public void Exit()
+        {
+        }
     }
 }

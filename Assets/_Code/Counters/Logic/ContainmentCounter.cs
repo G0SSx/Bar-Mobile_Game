@@ -1,29 +1,34 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using _Code.Counters.SoundLogic;
+using _Code.KitchenObjects;
+using UnityEngine;
 
-public abstract class ContainmentCounter : BaseCounter
+namespace _Code.Counters.Logic
 {
-    [SerializeField] private Transform _kitchenObjectParent;
-    [SerializeField] private TakeAndGiveSoundCounter _counterSounds;
-
-    protected KitchenObject kitchenObject { get; private set; }
-
-    protected virtual KitchenObject ReturnKitchenObject()
+    public abstract class ContainmentCounter : BaseCounter
     {
-        _counterSounds.PlayTakeSound();
-        KitchenObject objectToReturn = kitchenObject;
-        kitchenObject = null;
-        return objectToReturn;
-    }
+        [SerializeField] private Transform _kitchenObjectParent;
+        [SerializeField] private TakeAndGiveSoundCounter _counterSounds;
 
-    protected virtual void TakeKitchenObject(KitchenObject kitchenObject)
-    {
-        if (kitchenObject == null)
-            throw new ArgumentNullException();
+        protected KitchenObject kitchenObject { get; private set; }
 
-        _counterSounds.PlayTakeSound();
-        kitchenObject.HasBeenTaken?.Invoke();
-        this.kitchenObject = kitchenObject;
-        this.kitchenObject.SetParent(_kitchenObjectParent);
+        protected virtual KitchenObject ReturnKitchenObject()
+        {
+            _counterSounds.PlayTakeSound();
+            KitchenObject objectToReturn = kitchenObject;
+            kitchenObject = null;
+            return objectToReturn;
+        }
+
+        protected virtual void TakeKitchenObject(KitchenObject kitchenObject)
+        {
+            if (kitchenObject == null)
+                throw new ArgumentNullException();
+
+            _counterSounds.PlayTakeSound();
+            kitchenObject.HasBeenTaken?.Invoke();
+            this.kitchenObject = kitchenObject;
+            this.kitchenObject.SetParent(_kitchenObjectParent);
+        }
     }
 }

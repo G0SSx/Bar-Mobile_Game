@@ -1,8 +1,12 @@
 ﻿using System;
+using _Code.Configs;
 
-[Serializable]
-public class RecipeData
+namespace _Code.Data
 {
-    public string Title;
-    public KitchenObjectConfig[] Ingredients;
+    [Serializable]
+    public class RecipeData
+    {
+        public string Title;
+        public KitchenObjectConfig[] Ingredients;
+    }
 }

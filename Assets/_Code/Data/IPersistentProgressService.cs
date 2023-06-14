@@ -1,4 +1,7 @@
-﻿public interface IPersistentProgressService
+﻿namespace _Code.Data
 {
-    PlayerProgress Progress { get; set; }
+    public interface IPersistentProgressService
+    {
+        PlayerProgress Progress { get; set; }
+    }
 }

@@ -1,4 +1,7 @@
-﻿public interface IPayloadedState<TPayload> : IExitableState
+﻿namespace _Code.Infrastructure.GameSM
 {
-    void Enter(TPayload payload);
+    public interface IPayloadedState<TPayload> : IExitableState
+    {
+        void Enter(TPayload payload);
+    }
 }

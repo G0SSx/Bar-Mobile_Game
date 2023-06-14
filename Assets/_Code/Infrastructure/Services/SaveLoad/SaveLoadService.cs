@@ -1,28 +1,33 @@
-﻿using UnityEngine;
+﻿using _Code.Data;
+using _Code.Infrastructure.Services.Factory;
+using UnityEngine;
 
-public class SaveLoadService : ISaveLoadService
+namespace _Code.Infrastructure.Services.SaveLoad
 {
-    private const string ProgressKey = "progress";
-
-    private readonly IPersistentProgressService _progressService;
-    private readonly IGameFactory _factory;
-
-    public SaveLoadService(IPersistentProgressService progressService, IGameFactory factory)
+    public class SaveLoadService : ISaveLoadService
     {
-        _progressService = progressService;
-        _factory = factory;
+        private const string ProgressKey = "progress";
+
+        private readonly IPersistentProgressService _progressService;
+        private readonly IGameFactory _factory;
+
+        public SaveLoadService(IPersistentProgressService progressService, IGameFactory factory)
+        {
+            _progressService = progressService;
+            _factory = factory;
+        }
+
+        public void SaveProgress()
+        {
+            foreach (ISavedProgress progressWriters in _factory.ProgressWriters)
+                progressWriters.UpdateProgress(_progressService.Progress);
+
+            PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
+            PlayerPrefs.Save();
+        }
+
+        public PlayerProgress LoadProgress() => 
+            PlayerPrefs.GetString(ProgressKey)?
+                .ToDeserialized<PlayerProgress>();
     }
-
-    public void SaveProgress()
-    {
-        foreach (ISavedProgress progressWriters in _factory.ProgressWriters)
-            progressWriters.UpdateProgress(_progressService.Progress);
-
-        PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
-        PlayerPrefs.Save();
-    }
-
-    public PlayerProgress LoadProgress() => 
-        PlayerPrefs.GetString(ProgressKey)?
-            .ToDeserialized<PlayerProgress>();
 }

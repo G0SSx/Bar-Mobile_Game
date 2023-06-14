@@ -1,5 +1,8 @@
-﻿public static class GameScenes
+﻿namespace _Code.Configs
 {
-    public const string Tutorial = "Tutorial";
-    public const string GameLevel = "Game";
+    public static class GameScenes
+    {
+        public const string Tutorial = "Tutorial";
+        public const string GameLevel = "Game";
+    }
 }

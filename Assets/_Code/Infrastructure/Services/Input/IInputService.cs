@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public interface IInputService
+namespace _Code.Infrastructure.Services.Input
 {
-    Vector2 Axis { get; }
+    public interface IInputService
+    {
+        Vector2 Axis { get; }
 
-    bool IsInterationButtonUp();
-    bool IsSettingsButtonUp();
+        bool IsInterationButtonUp();
+        bool IsSettingsButtonUp();
+    }
 }

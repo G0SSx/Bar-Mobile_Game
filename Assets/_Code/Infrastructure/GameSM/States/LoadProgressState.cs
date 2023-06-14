@@ -1,30 +1,37 @@
-﻿public class LoadProgressState : IState
+﻿using _Code.Configs;
+using _Code.Data;
+using _Code.Infrastructure.Services.SaveLoad;
+
+namespace _Code.Infrastructure.GameSM.States
 {
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly IPersistentProgressService _progressService;
-    private readonly ISaveLoadService _saveLoadProgress;
-
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+    public class LoadProgressState : IState
     {
-        _gameStateMachine = gameStateMachine;
-        _progressService = progressService;
-        _saveLoadProgress = saveLoadProgress;
-    }
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly IPersistentProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadProgress;
 
-    public void Enter()
-    {
-        LoadProgressOrInitNew();
-        _gameStateMachine.Enter<LoadLevelState, string>(GameScenes.GameLevel);
-    }
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+        {
+            _gameStateMachine = gameStateMachine;
+            _progressService = progressService;
+            _saveLoadProgress = saveLoadProgress;
+        }
 
-    public void Exit()
-    {
-    }
+        public void Enter()
+        {
+            LoadProgressOrInitNew();
+            _gameStateMachine.Enter<LoadLevelState, string>(GameScenes.GameLevel);
+        }
 
-    private void LoadProgressOrInitNew()
-    {
-        _progressService.Progress =
-          _saveLoadProgress.LoadProgress()
-          ?? new PlayerProgress();
+        public void Exit()
+        {
+        }
+
+        private void LoadProgressOrInitNew()
+        {
+            _progressService.Progress =
+                _saveLoadProgress.LoadProgress()
+                ?? new PlayerProgress();
+        }
     }
 }

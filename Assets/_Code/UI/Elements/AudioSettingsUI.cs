@@ -1,30 +1,34 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using AudioSettings = _Code.Audio.AudioSettings;
 
-public class AudioSettingsUI : MonoBehaviour
+namespace _Code.UI.Elements
 {
-    [SerializeField] private AudioMixerGroup _masterGroup;
-    [SerializeField] private Slider _masterVolumeSlider;
-    [SerializeField] private Button _musicButton;
-    [SerializeField] private Button _sfxButton;
-
-    private AudioSettings _audioSettings;
-
-    private void Awake()
+    public class AudioSettingsUI : MonoBehaviour
     {
-        _audioSettings = new AudioSettings(_masterGroup, _masterVolumeSlider);
+        [SerializeField] private AudioMixerGroup _masterGroup;
+        [SerializeField] private Slider _masterVolumeSlider;
+        [SerializeField] private Button _musicButton;
+        [SerializeField] private Button _sfxButton;
 
-        _musicButton.onClick.AddListener(() => _audioSettings.ToggleMusic());
-        _sfxButton.onClick.AddListener(() => _audioSettings.ToggleSFX());
-    }
+        private AudioSettings _audioSettings;
 
-    public void ShowSettings() => 
-        gameObject.SetActive(true);
+        private void Awake()
+        {
+            _audioSettings = new AudioSettings(_masterGroup, _masterVolumeSlider);
 
-    public void HideSettings()
-    {
-        _audioSettings.Save();
-        gameObject.SetActive(false);
+            _musicButton.onClick.AddListener(() => _audioSettings.ToggleMusic());
+            _sfxButton.onClick.AddListener(() => _audioSettings.ToggleSFX());
+        }
+
+        public void ShowSettings() => 
+            gameObject.SetActive(true);
+
+        public void HideSettings()
+        {
+            _audioSettings.Save();
+            gameObject.SetActive(false);
+        }
     }
 }

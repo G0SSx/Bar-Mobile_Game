@@ -1,118 +1,127 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using _Code.Counters.Logic;
+using _Code.Counters.SoundLogic;
+using _Code.KitchenObjects;
+using _Code.KitchenObjects.Factory;
+using _Code.KitchenObjects.PlateLogic;
+using _Code.Logic;
+using UnityEngine;
 using Zenject;
 
-public class StoveCounter : ContainmentCounter
+namespace _Code.Counters
 {
-    [Header("Dependencies")]
-    [SerializeField] private GameObject _stoveOnVisual;
-    [SerializeField] private ProgressBar _progressBar;
-    [SerializeField] private CookingSoundCounter _sounds;
-
-    [Header("Settings")]
-    [SerializeField, Range(2.5f, 6f)] private float _timeToCook;
-    [SerializeField, Range(4f, 8f)] private float _timeToBurn;
-
-    private IKitchenObjectsFactory _factory;
-    private CookingState _state;
-    private float _cookingProgress;
-
-    private enum CookingState { WaitingForMeat = 0, Cooking, Burning, MeatBurned }
-
-    [Inject]
-    private void Construct(IKitchenObjectsFactory factory) => 
-        _factory = factory;
-
-    public override KitchenObject Interact(KitchenObject playersObject)
+    public class StoveCounter : ContainmentCounter
     {
-        if (PossibleToTakePlayersObject(playersObject))
-        {
-            TakeKitchenObject(playersObject);
-            StartCooking();
-        }
-        else if (MeatCookedAndPlayerEmpty(playersObject))
-        {
-            StopCooking();
-            return ReturnKitchenObject();
-        }
-        else if (playersObject is Plate plate && plate.CanTakeKitchenObject(kitchenObject))
-        {
-            StopCooking();
-            plate.TakeKitchenObject(ReturnKitchenObject());
-        }
+        [Header("Dependencies")]
+        [SerializeField] private GameObject _stoveOnVisual;
+        [SerializeField] private ProgressBar _progressBar;
+        [SerializeField] private CookingSoundCounter _sounds;
 
-        return null;
-    }
+        [Header("Settings")]
+        [SerializeField, Range(2.5f, 6f)] private float _timeToCook;
+        [SerializeField, Range(4f, 8f)] private float _timeToBurn;
 
-    private void StartCooking()
-    {
-        _stoveOnVisual.SetActive(true);
-        _sounds.StartInteractionSound();
-        StartCoroutine(CookingCoroutine());
-    }
+        private IKitchenObjectsFactory _factory;
+        private CookingState _state;
+        private float _cookingProgress;
 
-    private void StopCooking()
-    {
-        _stoveOnVisual.SetActive(false);
-        _sounds.StopInteractionSound();
-        StopAllCoroutines();
-        _cookingProgress = 0f;
-        _progressBar.SetValue(0f);
-        _state = CookingState.WaitingForMeat;
-    }
+        private enum CookingState { WaitingForMeat = 0, Cooking, Burning, MeatBurned }
 
-    private IEnumerator CookingCoroutine()
-    {
-        while (_state != CookingState.MeatBurned)
+        [Inject]
+        private void Construct(IKitchenObjectsFactory factory) => 
+            _factory = factory;
+
+        public override KitchenObject Interact(KitchenObject playersObject)
         {
-            switch (_state)
+            if (PossibleToTakePlayersObject(playersObject))
             {
-                case CookingState.WaitingForMeat:
-                    _state = CookingState.Cooking;
-                    _progressBar.SetGoal(_timeToCook);
-                    yield return StartCoroutine(Cook(_timeToCook));
-                    break;
+                TakeKitchenObject(playersObject);
+                StartCooking();
+            }
+            else if (MeatCookedAndPlayerEmpty(playersObject))
+            {
+                StopCooking();
+                return ReturnKitchenObject();
+            }
+            else if (playersObject is Plate plate && plate.CanTakeKitchenObject(kitchenObject))
+            {
+                StopCooking();
+                plate.TakeKitchenObject(ReturnKitchenObject());
+            }
 
-                case CookingState.Cooking:
-                    DestoryKitchenObject();
-                    TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatCooked));
-                    _state = CookingState.Burning;
-                    _progressBar.SetGoal(_timeToBurn);
-                    yield return StartCoroutine(Cook(_timeToBurn));
-                    break;
+            return null;
+        }
 
-                case CookingState.Burning:
-                    DestoryKitchenObject();
-                    TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatBurned));
-                    _state = CookingState.MeatBurned;
-                    break;
+        private void StartCooking()
+        {
+            _stoveOnVisual.SetActive(true);
+            _sounds.StartInteractionSound();
+            StartCoroutine(CookingCoroutine());
+        }
+
+        private void StopCooking()
+        {
+            _stoveOnVisual.SetActive(false);
+            _sounds.StopInteractionSound();
+            StopAllCoroutines();
+            _cookingProgress = 0f;
+            _progressBar.SetValue(0f);
+            _state = CookingState.WaitingForMeat;
+        }
+
+        private IEnumerator CookingCoroutine()
+        {
+            while (_state != CookingState.MeatBurned)
+            {
+                switch (_state)
+                {
+                    case CookingState.WaitingForMeat:
+                        _state = CookingState.Cooking;
+                        _progressBar.SetGoal(_timeToCook);
+                        yield return StartCoroutine(Cook(_timeToCook));
+                        break;
+
+                    case CookingState.Cooking:
+                        DestoryKitchenObject();
+                        TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatCooked));
+                        _state = CookingState.Burning;
+                        _progressBar.SetGoal(_timeToBurn);
+                        yield return StartCoroutine(Cook(_timeToBurn));
+                        break;
+
+                    case CookingState.Burning:
+                        DestoryKitchenObject();
+                        TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatBurned));
+                        _state = CookingState.MeatBurned;
+                        break;
+                }
             }
         }
-    }
 
-    private IEnumerator Cook(float timeToWait)
-    {
-        while (_cookingProgress < timeToWait)
+        private IEnumerator Cook(float timeToWait)
         {
-            yield return new WaitForEndOfFrame();
-            _cookingProgress += Time.deltaTime;
-            _progressBar.SetValue(_cookingProgress);
+            while (_cookingProgress < timeToWait)
+            {
+                yield return new WaitForEndOfFrame();
+                _cookingProgress += Time.deltaTime;
+                _progressBar.SetValue(_cookingProgress);
+            }
+
+            _progressBar.SetValue(0f);
+            _cookingProgress = 0f;
         }
 
-        _progressBar.SetValue(0f);
-        _cookingProgress = 0f;
+        private bool PossibleToTakePlayersObject(KitchenObject playersObject) =>
+            kitchenObject == null && playersObject != null && 
+            playersObject.Type == KitchenObjectType.MeatUncooked && playersObject.IsCooked == false;
+
+        private bool MeatCookedAndPlayerEmpty(KitchenObject playersObject) =>
+            kitchenObject != null && _state != CookingState.Cooking && playersObject == null;
+
+        private KitchenObject CreateMeatOfType(KitchenObjectType type) =>
+            _factory.CreateKitchenObject(type);
+
+        private void DestoryKitchenObject() => 
+            Destroy(kitchenObject.gameObject);
     }
-
-    private bool PossibleToTakePlayersObject(KitchenObject playersObject) =>
-        kitchenObject == null && playersObject != null && 
-        playersObject.Type == KitchenObjectType.MeatUncooked && playersObject.IsCooked == false;
-
-    private bool MeatCookedAndPlayerEmpty(KitchenObject playersObject) =>
-        kitchenObject != null && _state != CookingState.Cooking && playersObject == null;
-
-    private KitchenObject CreateMeatOfType(KitchenObjectType type) =>
-        _factory.CreateKitchenObject(type);
-
-    private void DestoryKitchenObject() => 
-        Destroy(kitchenObject.gameObject);
 }

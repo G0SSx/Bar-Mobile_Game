@@ -1,4 +1,7 @@
-﻿public class PersistentProgressService : IPersistentProgressService
+﻿namespace _Code.Data
 {
-    public PlayerProgress Progress { get; set; }
+    public class PersistentProgressService : IPersistentProgressService
+    {
+        public PlayerProgress Progress { get; set; }
+    }
 }

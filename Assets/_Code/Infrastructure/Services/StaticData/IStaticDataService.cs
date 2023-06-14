@@ -1,6 +1,12 @@
-﻿public interface IStaticDataService
+﻿using _Code.Configs;
+using _Code.KitchenObjects;
+
+namespace _Code.Infrastructure.Services.StaticData
 {
-    void LoadConfigs();
-    KitchenObjectConfig ForKitchenObject(KitchenObjectType type);
-    LevelConfig ForLevel(string levelKey);
+    public interface IStaticDataService
+    {
+        void LoadConfigs();
+        KitchenObjectConfig ForKitchenObject(KitchenObjectType type);
+        LevelConfig ForLevel(string levelKey);
+    }
 }

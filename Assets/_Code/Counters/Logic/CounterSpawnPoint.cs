@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using _Code.KitchenObjects;
+using UnityEngine;
 
-public class CounterSpawnPoint : MonoBehaviour
+namespace _Code.Counters.Logic
 {
-    public CounterType Type;
-    public KitchenObjectType KitchenObjectType;
+    public class CounterSpawnPoint : MonoBehaviour
+    {
+        public CounterType Type;
+        public KitchenObjectType KitchenObjectType;
+    }
 }

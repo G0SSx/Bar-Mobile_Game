@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 
-public abstract class Purchasable : MonoBehaviour
+namespace _Code.Logic
 {
-    public float Price;
-
-    public void Purchase()
+    public abstract class Purchasable : MonoBehaviour
     {
+        public float Price;
+
+        public void Purchase()
+        {
+        }
     }
 }

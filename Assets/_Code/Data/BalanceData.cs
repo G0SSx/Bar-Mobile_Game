@@ -1,16 +1,19 @@
 ﻿using System;
 
-[Serializable]
-public class BalanceData
+namespace _Code.Data
 {
-    public event Action Changed;
-    public int Money;
-
-    public BalanceData() { }
-
-    public void AddMoney(int value)
+    [Serializable]
+    public class BalanceData
     {
-        Money += value;
-        Changed?.Invoke();
+        public event Action Changed;
+        public int Money;
+
+        public BalanceData() { }
+
+        public void AddMoney(int value)
+        {
+            Money += value;
+            Changed?.Invoke();
+        }
     }
 }
