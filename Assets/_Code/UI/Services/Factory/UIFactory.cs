@@ -1,28 +1,32 @@
-﻿using UnityEngine;
+﻿using _Code.Infrastructure.AssetManagement;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class UIFactory : IUIFactory
+namespace _Code.UI.Services.Factory
 {
-    public Transform UIRoot { get; private set; }
-
-    private readonly IAssets _assets;
-
-    public UIFactory(IAssets assets) => 
-        _assets = assets;
-
-    public void CreateUIRoot() => 
-        UIRoot = _assets.Instantiate(AssetPath.UIRoot).transform;
-
-    public void CreateHud() => 
-        _assets.InstantiateWithZenject(AssetPath.Hud, UIRoot);
-
-    public GameObject CreateIconObject(Sprite icon)
+    public class UIFactory : IUIFactory
     {
-        GameObject iconObject = _assets.Instantiate(AssetPath.IconObject);
+        public Transform UIRoot { get; private set; }
 
-        iconObject.GetComponent<Image>()
-            .sprite = icon;
+        private readonly IAssets _assets;
 
-        return iconObject;
+        public UIFactory(IAssets assets) => 
+            _assets = assets;
+
+        public void CreateUIRoot() => 
+            UIRoot = _assets.Instantiate(AssetPath.UIRoot).transform;
+
+        public void CreateHud() => 
+            _assets.InstantiateWithZenject(AssetPath.Hud, UIRoot);
+
+        public GameObject CreateIconObject(Sprite icon)
+        {
+            GameObject iconObject = _assets.Instantiate(AssetPath.IconObject);
+
+            iconObject.GetComponent<Image>()
+                .sprite = icon;
+
+            return iconObject;
+        }
     }
 }
