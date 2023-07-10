@@ -82,7 +82,7 @@ namespace _Code.Counters
                         break;
 
                     case CookingState.Cooking:
-                        DestoryKitchenObject();
+                        DestroyKitchenObject();
                         TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatCooked));
                         _state = CookingState.Burning;
                         _progressBar.SetGoal(_timeToBurn);
@@ -90,7 +90,7 @@ namespace _Code.Counters
                         break;
 
                     case CookingState.Burning:
-                        DestoryKitchenObject();
+                        DestroyKitchenObject();
                         TakeKitchenObject(CreateMeatOfType(KitchenObjectType.MeatBurned));
                         _state = CookingState.MeatBurned;
                         break;
@@ -121,7 +121,7 @@ namespace _Code.Counters
         private KitchenObject CreateMeatOfType(KitchenObjectType type) =>
             _factory.CreateKitchenObject(type);
 
-        private void DestoryKitchenObject() => 
+        private void DestroyKitchenObject() => 
             Destroy(kitchenObject.gameObject);
     }
 }

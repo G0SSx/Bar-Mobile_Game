@@ -80,13 +80,13 @@ namespace _Code.Player
             _kitchenObject = kitchenObject;
             _kitchenObject.SetParent(_kitchenObjectParent);
             _kitchenObject.HasBeenTaken += KitchenObjectTaken;
-            _kitchenObject.DeleteObject += KitchenObjectDelete;
+            _kitchenObject.ObjectDeleted += KitchenObjectDelete;
         }
 
         private void KitchenObjectTaken()
         {
             _kitchenObject.HasBeenTaken -= KitchenObjectTaken;
-            _kitchenObject.DeleteObject -= KitchenObjectDelete;
+            _kitchenObject.ObjectDeleted -= KitchenObjectDelete;
             _kitchenObject = null;
         }
 

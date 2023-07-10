@@ -88,7 +88,7 @@ namespace _Code.Editor
                     return CounterType.Delivery;
                 case nameof(ClearCounter):
                     return CounterType.Clear;
-                case nameof(PlatesCounter):
+                case nameof(GlassCounter):
                     return CounterType.Plates;
                 case nameof(ContainerCounter):
                     return CounterType.Container;

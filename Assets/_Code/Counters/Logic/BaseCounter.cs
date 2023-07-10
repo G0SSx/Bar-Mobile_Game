@@ -1,19 +1,9 @@
-﻿using System.Linq;
-using _Code.KitchenObjects;
-using UnityEngine;
+﻿using _Code.KitchenObjects;
 
 namespace _Code.Counters.Logic
 {
-    public abstract class BaseCounter : MonoBehaviour
+    public abstract class BaseCounter : SelectableCounter
     {
-        [SerializeField] private GameObject _selectedVisual;
-
         public abstract KitchenObject Interact(KitchenObject playersObject);
-
-        public void Select() =>
-            _selectedVisual.SetActive(true);
-
-        public void Unselect() =>
-            _selectedVisual.SetActive(false);
     }
 }

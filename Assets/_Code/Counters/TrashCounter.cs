@@ -13,7 +13,7 @@ namespace _Code.Counters
         {
             if (playersObject != null)
             {
-                playersObject.DeleteObject?.Invoke();
+                playersObject.ObjectDeleted?.Invoke();
                 _sounds.PlayGiveSound();
             }
 

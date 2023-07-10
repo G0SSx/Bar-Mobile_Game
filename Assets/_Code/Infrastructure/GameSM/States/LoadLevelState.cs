@@ -1,4 +1,6 @@
 ﻿using _Code.Configs;
+using _Code.Counters;
+using _Code.Counters.Logic;
 using _Code.Counters.Services;
 using _Code.Data;
 using _Code.Infrastructure.Services.Factory;
@@ -39,7 +41,7 @@ namespace _Code.Infrastructure.GameSM.States
             _sceneLoader.Load(sceneName, OnLoaded);
             _stateMachine.Enter<GameLoopState>();
         }
-    
+
         public void Exit()
         {
         }
@@ -51,24 +53,45 @@ namespace _Code.Infrastructure.GameSM.States
             InformProgressReaders();
         }
 
+        private CameraController InitCameras()
+        {
+            Vector3 cameraPosition = 
+                Object.FindObjectOfType<CameraPosition>()
+                    .transform.position;
+
+            return  _factory.CreateCameras(cameraPosition)
+                .GetComponent<CameraController>();
+        }
+
         private void InitUIRoot() =>
             _uiFactory.CreateUIRoot();
 
         private void InitLevel()
         {
+            CameraController cameraController = InitCameras();
             InitPlayer();
             _uiFactory.CreateHud();
-            InitCounters();
+            InitCounters(cameraController);
         }
 
-        private void InitCounters()
+        private void InitCounters(CameraController cameraController)
         {
             string levelKey = SceneManager.GetActiveScene().name;
             LevelConfig levelConfig = _staticDataService.ForLevel(levelKey);
 
-            foreach (CounterSpawnPointData counter in levelConfig.CountersData)
-                _countersFactory.CreateCounterOfType(counter.Position, counter.Rotation, counter.Type,
-                    counter.KitchenObjectType);
+            foreach (CounterSpawnPointData counterPoint in levelConfig.CountersData)
+            {
+                if (counterPoint.Type == CounterType.Container)
+                {
+                    GameObject containerCounterObject = _countersFactory
+                        .CreateContainerCounter(counterPoint.Position, counterPoint.Rotation, counterPoint.KitchenObjectType);
+
+                    ContainerCounter containerCounter = containerCounterObject.GetComponent<ContainerCounter>();
+                    containerCounter.SetCameraController(cameraController);
+                }
+                else
+                    _countersFactory.CreateCounterOfType(counterPoint.Position, counterPoint.Rotation, counterPoint.Type);
+            }
         }
 
         private void InitPlayer()

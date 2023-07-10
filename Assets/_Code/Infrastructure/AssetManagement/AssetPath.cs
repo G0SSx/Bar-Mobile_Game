@@ -5,6 +5,7 @@
         //General
         public const string Hud = "UI/HUD";
         public const string UIRoot = "UI/UIRoot";
+        public const string Cameras = "Camera/CameraHolder";
         public const string Player = "Player/Player";
         public const string IconObject = "UI/Elements/IconObject";
 
@@ -33,5 +34,6 @@
         public const string MeatCooked = "KitchenObjects/MeatCooked";
         public const string MeatBurned = "KitchenObjects/MeatBurned";
         public const string Bread = "KitchenObjects/Bread";
+        public const string Glass = "KitchenObjects/Glass";
     }
 }

@@ -16,6 +16,10 @@ namespace _Code.KitchenObjects.Factory
             _staticData = staticData;
         }
 
+        public Glass CreateGlass() => 
+            Instantiate(AssetPath.Glass)
+                .GetComponent<Glass>();
+
         public KitchenObject CreateKitchenObject(KitchenObjectType type) =>
             CreateKitchenObjectAndInit(type);
 

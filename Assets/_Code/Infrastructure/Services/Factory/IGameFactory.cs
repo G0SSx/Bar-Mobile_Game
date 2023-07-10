@@ -10,6 +10,7 @@ namespace _Code.Infrastructure.Services.Factory
         List<ISavedProgress> ProgressWriters { get; }
 
         GameObject CreatePlayer(Vector3 position);
+        GameObject CreateCameras(Vector3 cameraPosition);
         void Cleanup();
     }
 }

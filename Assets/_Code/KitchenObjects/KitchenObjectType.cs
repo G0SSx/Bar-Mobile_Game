@@ -18,5 +18,6 @@ namespace _Code.KitchenObjects
         TomatoSliced = 10,
         CabbageSliced = 11,
         CheeseSliced = 12,
+        Glass = 13,
     }
 }

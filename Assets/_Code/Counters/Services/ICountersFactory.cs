@@ -6,14 +6,13 @@ namespace _Code.Counters.Services
 {
     public interface ICountersFactory
     {
-        GameObject CreateCountainerCounter(KitchenObjectType type);
-        GameObject CreateDeliveryCounter();
-        GameObject CreateCutterCounter();
-        GameObject CreatePlatesCounter();
-        GameObject CreateStoveCounter();
-        GameObject CreateTrashCounter();
-        GameObject CreateClearCounter();
-        GameObject CreateCounterOfType(Vector3 position, Quaternion rotationt, CounterType type,
-            KitchenObjectType kitchenObjectType);
+        GameObject CreateCounterOfType(Vector3 position, Quaternion rotation, CounterType type);
+        GameObject CreateContainerCounter(Vector3 position, Quaternion rotation, KitchenObjectType type);
+        GameObject CreateDeliveryCounter(Vector3 position, Quaternion rotation);
+        GameObject CreateCutterCounter(Vector3 position, Quaternion rotation);
+        GameObject CreatePlatesCounter(Vector3 position, Quaternion rotation);
+        GameObject CreateStoveCounter(Vector3 position, Quaternion rotation);
+        GameObject CreateTrashCounter(Vector3 position, Quaternion rotation);
+        GameObject CreateClearCounter(Vector3 position, Quaternion rotation);
     }
 }

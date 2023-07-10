@@ -49,7 +49,7 @@ namespace _Code.Counters
         {
             _progress.Progress.Balance.AddMoney(_recipeData.Ingredients.Length);
             _sounds.PlayInteractSound();
-            playersObject.DeleteObject?.Invoke();
+            playersObject.ObjectDeleted?.Invoke();
             _recipeUI.RecipeDelivered();
         }
 
@@ -58,11 +58,11 @@ namespace _Code.Counters
             _recipeData = GetRandomRecipe();
             _recipeUI.SetTitle(_recipeData.Title);
 
-            foreach (KitchenObjectConfig ingredient in _recipeData.Ingredients)
+            /*foreach (KitchenObjectConfig ingredient in _recipeData.Ingredients)
             {
                 GameObject iconObject = _factory.CreateIconObject(ingredient.Icon);
                 _recipeUI.AddIconObject(iconObject);
-            }
+            }*/
         }
 
         private bool IngredientsMatch(Plate plate)

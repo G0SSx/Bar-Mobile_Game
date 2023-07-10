@@ -12,75 +12,94 @@ namespace _Code.Counters.Services
         public CountersFactory(IAssets assets) => 
             _assets = assets;
 
-        public GameObject CreateCounterOfType(Vector3 position, Quaternion rotationt, CounterType type, 
-            KitchenObjectType kitchenObjectType)
+        public GameObject CreateCounterOfType(Vector3 position, Quaternion rotation, CounterType type)
         {
-            GameObject counterObject = null;
-
             switch (type)
             {
-                case CounterType.Unknown:
-                    break;
                 case CounterType.Clear:
-                    counterObject = CreateClearCounter();
-                    break;
+                    return CreateClearCounter(position, rotation);
                 case CounterType.Stove:
-                    counterObject = CreateStoveCounter();
-                    break;
+                    return CreateStoveCounter(position, rotation);
                 case CounterType.Cutter:
-                    counterObject = CreateCutterCounter();
-                    break;
-                case CounterType.Container:
-                    counterObject = CreateCountainerCounter(kitchenObjectType);
-                    break;
+                    return CreateCutterCounter(position, rotation);
                 case CounterType.Delivery:
-                    counterObject = CreateDeliveryCounter();
-                    break;
+                    return CreateDeliveryCounter(position, rotation);
                 case CounterType.Trash:
-                    counterObject = CreateTrashCounter();
-                    break;
+                    return CreateTrashCounter(position, rotation);
                 case CounterType.Plates:
-                    counterObject = CreatePlatesCounter();
-                    break;
-                default:
-                    break;
+                    return CreatePlatesCounter(position, rotation);
             }
 
-            if (counterObject != null)
-            {
-                counterObject.transform.position = position;
-                counterObject.transform.rotation = rotationt;
-            }
-
-            return counterObject;
+            return null;
         }
 
-        public GameObject CreateClearCounter() =>
-            _assets.Instantiate(AssetPath.ClearCounter);
-
-        public GameObject CreateCountainerCounter(KitchenObjectType type)
+        public GameObject CreateContainerCounter(Vector3 position, Quaternion rotation, KitchenObjectType type)
         {
             GameObject counter = _assets.InstantiateWithZenject(AssetPath.ContainerCounter);
 
             counter.GetComponent<ContainerCounter>()
                 .KitchenObjectType = type;
 
+            SetCounterTransform(position, rotation, counter);
+            
             return counter;
         }
 
-        public GameObject CreateCutterCounter() =>
-            _assets.InstantiateWithZenject(AssetPath.CutterCounter);
+        public GameObject CreateClearCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.ClearCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
 
-        public GameObject CreateDeliveryCounter() =>
-            _assets.InstantiateWithZenject(AssetPath.DeliveryCounter);
+        public GameObject CreateCutterCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.CutterCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
 
-        public GameObject CreatePlatesCounter() =>
-            _assets.InstantiateWithZenject(AssetPath.PlatesCounter);
+        public GameObject CreateDeliveryCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.DeliveryCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
 
-        public GameObject CreateStoveCounter() =>
-            _assets.InstantiateWithZenject(AssetPath.StoveCounter);
+        public GameObject CreatePlatesCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.PlatesCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
 
-        public GameObject CreateTrashCounter() =>
-            _assets.Instantiate(AssetPath.TrashCounter);
+        public GameObject CreateStoveCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.StoveCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
+
+        public GameObject CreateTrashCounter(Vector3 position, Quaternion rotation)
+        {
+            GameObject counter = _assets.Instantiate(AssetPath.TrashCounter);
+            SetCounterTransform(position, rotation,  counter);
+            
+            return counter;
+        }
+
+        private static void SetCounterTransform(Vector3 position, Quaternion rotation, GameObject counterObject)
+        {
+            if (counterObject != null)
+            {
+                counterObject.transform.position = position;
+                counterObject.transform.rotation = rotation;
+            }
+        }
     }
 }

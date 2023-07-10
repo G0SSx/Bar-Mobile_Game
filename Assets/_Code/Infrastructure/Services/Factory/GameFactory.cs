@@ -7,8 +7,8 @@ namespace _Code.Infrastructure.Services.Factory
 {
     public class GameFactory : IGameFactory
     {
-        public List<ISavedProgressReader> ProgressReaders { get; }
-        public List<ISavedProgress> ProgressWriters { get; }
+        public List<ISavedProgressReader> ProgressReaders { get; private set; }
+        public List<ISavedProgress> ProgressWriters { get; private set; }
 
         private readonly IPersistentProgressService _progressService;
         private readonly IAssets _assets;
@@ -28,13 +28,16 @@ namespace _Code.Infrastructure.Services.Factory
             ProgressWriters?.Clear();
         }
 
+        public GameObject CreateCameras(Vector3 cameraPosition) => 
+            _assets.Instantiate(AssetPath.Cameras, cameraPosition);
+
         private GameObject InstantiateRegistered(string path, Vector3 position)
         {
             GameObject gameObject = _assets.InstantiateWithZenject(path, position);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
-    
+
         private void RegisterProgressWatchers(GameObject gameObject)
         {
             foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
